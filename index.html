@@ -357,12 +357,13 @@
 
   .inlagg-nr {
     font-family: 'Playfair Display', serif;
-    font-size: 2rem;
+    font-size: 1rem;
     font-weight: 900;
     color: var(--soft);
-    line-height: 1;
+    line-height: 1.3;
     padding-top: 0.2rem;
     text-align: right;
+    white-space: nowrap;
   }
 
   .inlagg-tag {
@@ -567,7 +568,15 @@
 
   .kat-kort:hover { background: var(--warm-white); }
 
-  .kat-emoji { font-size: 1.4rem; margin-bottom: 0.8rem; display: block; }
+  .kat-roman {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--rust);
+    margin-bottom: 0.8rem;
+    display: block;
+    opacity: 0.7;
+  }
 
   .kat-namn {
     font-family: 'Playfair Display', serif;
@@ -596,16 +605,29 @@
     align-items: start;
   }
 
-  .om-foto {
-    background: linear-gradient(160deg, #4a3522, #2c1e0e);
+  .om-foto-wrap {
+    position: relative;
+    overflow: hidden;
     aspect-ratio: 3/4;
-    display: flex;
-    align-items: flex-end;
-    padding: 1.5rem;
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    color: rgba(247,242,234,0.25);
-    font-size: 1.2rem;
+  }
+
+  .om-foto-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+
+  /* Mjuk övertoning från höger och nederkant */
+  .om-foto-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to right, transparent 55%, var(--cream) 100%),
+      linear-gradient(to top, var(--cream) 0%, transparent 25%);
+    pointer-events: none;
   }
 
   .om-citat {
@@ -731,13 +753,13 @@
 <!-- INTRO -->
 <section class="intro" id="tankar">
   <div class="section-wrap">
-    <p class="label">Välkommen hit</p>
+    <p class="label">Raket #000 — Uppskjutning</p>
     <h2 class="intro-heading">
       Det här är inte en snygg feed.<br>
       Det är <em>ett huvud</em> — med <strong>hundra raketer</strong> i rörelse.
     </h2>
     <p class="intro-body">
-      Ibland är tankarna startklara och susar iväg. Ibland behöver de putsas, fejas, repareras eller laddas om. Allt det händer här, öppet och på riktigt. Vardag, nyfikenhet, frågor utan svar och svar utan frågor.
+      Några är startklara och susar iväg. Några behöver putsas, fejas, repareras eller laddas om. Alla bär på något. Det är det jag skriver om — öppet och på riktigt.
     </p>
   </div>
 </section>
@@ -750,8 +772,8 @@
     <div class="raket-inner">
       <div class="raket-siffra">100</div>
       <div class="raket-text">
-        <h3>Raketer i mitt huvud — ingen landar på samma ställe.</h3>
-        <p>Från stora livsfrågor till småsaker som plötsligt känns avgörande. Från jobbet till köket. Från det som skaver till det som lyser.</p>
+        <h3>Hundra raketer — ingen landar på samma ställe.</h3>
+        <p>Några skjuter iväg i gryningen. Några väntar fortfarande på sin bränslepåfyllning. Några har jag tappat bort — och hittat igen på oväntat ställe. Det är mitt huvud. Välkommen in.</p>
       </div>
     </div>
   </div>
@@ -761,38 +783,38 @@
 <section class="tankar">
   <div class="section-wrap">
     <div class="tankar-header">
-      <h2 class="tankar-rubrik">Senaste<br>tankar</h2>
-      <a class="se-alla" href="#">Se alla inlägg →</a>
+      <h2 class="tankar-rubrik">Senaste<br>uppskjutningar</h2>
+      <a class="se-alla" href="#">Se alla raketer →</a>
     </div>
     <div class="inlagg-lista">
       <a class="inlagg" href="#">
-        <div class="inlagg-nr">01</div>
+        <div class="inlagg-nr">🚀 01</div>
         <div>
-          <div class="inlagg-tag">Huvud & Tanke</div>
+          <div class="inlagg-tag">Huvud & Tanke · Startklarad</div>
           <div class="inlagg-titel">Varför är nyfikenhet starkare än plan?</div>
           <div class="inlagg-ingress">Jag hade tänkt skriva om något helt annat idag. Men sen undrade jag bara...</div>
         </div>
       </a>
       <a class="inlagg" href="#">
-        <div class="inlagg-nr">02</div>
+        <div class="inlagg-nr">🚀 02</div>
         <div>
-          <div class="inlagg-tag">Vardag & Verkliga</div>
+          <div class="inlagg-tag">Vardag & Verkliga · I bana</div>
           <div class="inlagg-titel">Onsdagen som lärde mig något om tisdag</div>
           <div class="inlagg-ingress">Det är inte alltid de stora momenten. Ibland är det just det som händer mitt i ingenting.</div>
         </div>
       </a>
       <a class="inlagg" href="#">
-        <div class="inlagg-nr">03</div>
+        <div class="inlagg-nr">🔧 03</div>
         <div>
-          <div class="inlagg-tag">Laga & Lära</div>
+          <div class="inlagg-tag">Laga & Lära · Under reparation</div>
           <div class="inlagg-titel">Raket #47 behövde en skiftnyckel</div>
           <div class="inlagg-ingress">Ibland är lösningen inte brilljant. Den är bara envis.</div>
         </div>
       </a>
       <a class="inlagg" href="#">
-        <div class="inlagg-nr">04</div>
+        <div class="inlagg-nr">🚀 04</div>
         <div>
-          <div class="inlagg-tag">Framåt & Nytt</div>
+          <div class="inlagg-tag">Framåt & Nytt · Ny kurs</div>
           <div class="inlagg-titel">AI i min vardag — vad jag faktiskt märker</div>
           <div class="inlagg-ingress">Inte hype. Inte rädsla. Bara ärliga observationer från en vanlig dag.</div>
         </div>
@@ -804,16 +826,16 @@
 <!-- FREDAGSHÄLSNING -->
 <section class="fredags" id="fredagshalsning">
   <div class="section-wrap">
-    <p class="label">Varje fredag</p>
+    <p class="label">Raket #100 — Varje fredag</p>
     <div class="fredags-grid">
       <div>
         <h2 class="fredags-heading">Fredags<em>hälsning</em></h2>
-        <p class="fredags-body">En stund varje fredag för att landa. Ett spår, en tanke, ett andetag. Hitta nuet och vila lite innan helgen tar vid.</p>
+        <p class="fredags-body">Varje fredag landar en raket. Inte med brak — utan mjukt. En stund för att landa, andas och hitta nuet innan helgen tar vid.</p>
         <blockquote class="fredags-citat">Det behöver inte vara stort. Det behöver bara vara äkta.</blockquote>
-        <p class="fredags-body">Veckans spellista är kurerad för exakt det här — ett soundtrack för fredagskvällen när du äntligen kan andas ut.</p>
+        <p class="fredags-body">Ett spår, en tanke, ett andetag. Veckans soundtrack — kurerat för exakt den känslan av att äntligen kunna andas ut.</p>
       </div>
       <div class="musik-kort">
-        <div class="musik-etikett">Veckans spår</div>
+        <div class="musik-etikett">🚀 Veckans uppskjutning</div>
         <div class="musik-titel">Fredagsfredning</div>
         <div class="musik-artist">Kuraterad av Monika · Spotify</div>
         <a class="spotify-knapp" href="https://open.spotify.com/playlist/63TWmfJj2I1Gv1pWRKGiqe" target="_blank">
@@ -827,10 +849,10 @@
 <!-- MENINGSFULLHET -->
 <section class="mening">
   <div class="section-wrap">
-    <h2 class="mening-rubrik">Det viktigaste är att<br>känna sig <em>meningsfull</em></h2>
+    <h2 class="mening-rubrik">Hundra raketer.<br>Ett syfte: känna sig <em>meningsfull</em>.</h2>
     <div class="mening-strek"></div>
     <p class="mening-text">Inte perfekt. Inte produktiv varje dag. Inte alltid med svaren. Men meningsfull — i det lilla och det stora, i vardagen och i de stora frågorna.</p>
-    <p class="mening-text">Det är därför jag skriver. Nyfikenhet är bränslet — mening är destinationen.</p>
+    <p class="mening-text">Nyfikenhet är bränslet. Mening är destinationen. Och raketens bana — det är livet självt.</p>
     <p class="mening-citat">Varje raket som lyfter bär på ett syfte. Även de som ännu inte vet vart de ska.</p>
   </div>
 </section>
@@ -838,15 +860,15 @@
 <!-- KATEGORIER -->
 <section class="kategorier" id="kategorier">
   <div class="section-wrap">
-    <p class="label">Vad du hittar här</p>
+    <p class="label">Hangar — 6 av 100</p>
     <h2 class="kat-rubrik">Ämnen jag<br>inte kan låta bli</h2>
     <div class="kat-grid">
-      <div class="kat-kort"><span class="kat-emoji">🧠</span><div class="kat-namn">Huvud & Tanke</div><p class="kat-desc">Reflektioner och insikter som poppar upp mitt i vardagen.</p></div>
-      <div class="kat-kort"><span class="kat-emoji">🚀</span><div class="kat-namn">Framåt & Nytt</div><p class="kat-desc">Nyfikenhet på teknik, förändring och det som inte finns ännu.</p></div>
-      <div class="kat-kort"><span class="kat-emoji">☕</span><div class="kat-namn">Vardag & Verkliga</div><p class="kat-desc">De små sakerna som faktiskt är stora.</p></div>
-      <div class="kat-kort"><span class="kat-emoji">🔧</span><div class="kat-namn">Laga & Lära</div><p class="kat-desc">Saker som gick sönder, behövde fixas — och vad det lärde mig.</p></div>
-      <div class="kat-kort"><span class="kat-emoji">🎶</span><div class="kat-namn">Musik & Stämning</div><p class="kat-desc">Ljudspår till livet. Det som sätter tonen för dagen.</p></div>
-      <div class="kat-kort"><span class="kat-emoji">❓</span><div class="kat-namn">Öppna Frågor</div><p class="kat-desc">Saker jag inte vet svaret på — men ändå måste skriva om.</p></div>
+      <div class="kat-kort"><span class="kat-roman">I</span><div class="kat-namn">Huvud & Tanke</div><p class="kat-desc">Startklara raketer — reflektioner och insikter som poppar upp mitt i vardagen.</p></div>
+      <div class="kat-kort"><span class="kat-roman">II</span><div class="kat-namn">Framåt & Nytt</div><p class="kat-desc">Raketer på ny kurs — nyfikenhet på teknik, förändring och det som inte finns ännu.</p></div>
+      <div class="kat-kort"><span class="kat-roman">III</span><div class="kat-namn">Vardag & Verkliga</div><p class="kat-desc">Raketer i låg bana — de små sakerna som faktiskt är stora.</p></div>
+      <div class="kat-kort"><span class="kat-roman">IV</span><div class="kat-namn">Laga & Lära</div><p class="kat-desc">Raketer under reparation — saker som gick sönder och vad det lärde mig.</p></div>
+      <div class="kat-kort"><span class="kat-roman">V</span><div class="kat-namn">Musik & Stämning</div><p class="kat-desc">Ljudspår till uppskjutningen — musik som sätter tonen för dagen.</p></div>
+      <div class="kat-kort"><span class="kat-roman">VI</span><div class="kat-namn">Öppna Frågor</div><p class="kat-desc">Raketer utan destination — saker jag inte vet svaret på, men måste skriva om.</p></div>
     </div>
   </div>
 </section>
@@ -855,18 +877,20 @@
 <section class="om" id="om">
   <div class="section-wrap">
     <div class="om-inner">
-      <div class="om-foto">Monika</div>
+      <div class="om-foto-wrap">
+        <img src="IMG_2334.jpeg" alt="Monika">
+      </div>
       <div>
-        <p class="label">Om mig</p>
+        <p class="label">Piloten bakom raketena</p>
         <p class="om-citat">"Jag är Monika — och mitt huvud stannar aldrig riktigt."</p>
         <p class="om-text">Jag jobbar, funderar, löser saker, förvirrar mig och börjar om. Varje dag är lite som att ha hundra raketer startklara — några skjuter iväg perfekt, några behöver putsas, några är i total behov av reparation.</p>
         <p class="om-text">Det här är min plats att skriva ner allt det. Utan filter, utan agenda — bara äkta nyfikenhet på livet som det är.</p>
         <div class="om-taggar">
           <span class="om-tag">Stockholm</span>
+          <span class="om-tag">100 raketer</span>
           <span class="om-tag">Nyfikenhet</span>
           <span class="om-tag">Vardag</span>
           <span class="om-tag">Musik</span>
-          <span class="om-tag">Teknik</span>
           <span class="om-tag">Make it happen</span>
         </div>
       </div>
@@ -877,9 +901,9 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo"><span>M</span>onika Make It Happen</div>
-  <div class="footer-sub">@monikamakeithappen · hundra raketer · Stockholm</div>
+  <div class="footer-sub">100 raketer · @monikamakeithappen · Stockholm</div>
   <a class="footer-ig" href="https://instagram.com/monikamakeithappen" target="_blank">instagram.com/monikamakeithappen</a>
-  <div class="footer-copy">© 2026 Monika Make It Happen</div>
+  <div class="footer-copy">© 2026 Monika Make It Happen — alla raketer förbehållna</div>
 </footer>
 
 <script>
