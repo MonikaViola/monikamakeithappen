@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monika Make It Happen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --ink: #1a1208;
+    --cream: #f5f0e8;
+    --warm-white: #fdfaf4;
+    --rust: #c8541a;
+    --gold: #d4a843;
+    --muted: #8a7e6e;
+    --soft: #e8e0d0;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--warm-white);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.5;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem 2rem;
+    overflow: hidden;
+    background: var(--ink);
+  }
+
+  .header-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  /* Animated rockets background */
+  .rocket-field {
+    position: absolute;
+    inset: 0;
+  }
+
+  .rocket {
+    position: absolute;
+    font-size: 1.2rem;
+    opacity: 0;
+    animation: rocketFloat linear infinite;
+    filter: grayscale(0.3);
+  }
+
+  @keyframes rocketFloat {
+    0% { transform: translateY(110vh) rotate(-15deg); opacity: 0; }
+    5% { opacity: 0.6; }
+    85% { opacity: 0.4; }
+    100% { transform: translateY(-20vh) rotate(-15deg); opacity: 0; }
+  }
+
+  /* Diagonal stripe accent */
+  .header-stripe {
+    position: absolute;
+    top: -10%;
+    right: -5%;
+    width: 45%;
+    height: 130%;
+    background: linear-gradient(135deg, #2a1f0e 0%, #3d2c14 50%, #1a1208 100%);
+    transform: skewX(-8deg);
+    border-left: 1px solid rgba(212, 168, 67, 0.15);
+  }
+
+  .header-content {
+    position: relative;
+    z-index: 10;
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .site-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.3s;
+  }
+
+  .site-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 10vw, 8.5rem);
+    font-weight: 900;
+    line-height: 0.9;
+    color: var(--cream);
+    letter-spacing: -0.02em;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.5s;
+  }
+
+  .site-title .make {
+    display: block;
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 400;
+    font-size: 0.55em;
+    line-height: 1.4;
+    letter-spacing: 0.05em;
+  }
+
+  .site-title .happen {
+    display: block;
+  }
+
+  .header-tagline {
+    margin-top: 2.5rem;
+    max-width: 420px;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: rgba(245, 240, 232, 0.65);
+    font-weight: 300;
+    font-style: italic;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 0.8s;
+    border-left: 2px solid var(--rust);
+    padding-left: 1.2rem;
+  }
+
+  .header-instagram {
+    margin-top: 3rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    color: rgba(245, 240, 232, 0.5);
+    text-decoration: none;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 1s;
+    transition: color 0.3s;
+  }
+
+  .header-instagram:hover { color: var(--gold); }
+
+  .instagram-dot {
+    width: 6px; height: 6px;
+    background: var(--rust);
+    border-radius: 50%;
+    animation: pulse 2s ease infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.6; }
+  }
+
+  /* Scroll hint */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 0.9s ease forwards 1.4s;
+  }
+
+  .scroll-hint span {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245, 240, 232, 0.3);
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.1); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(253, 250, 244, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--soft);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+
+  .nav-logo span { color: var(--rust); }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 0;
+    width: 0; height: 1px;
+    background: var(--rust);
+    transition: width 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* ── INTRO SECTION ── */
+  .intro-section {
+    padding: 8rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--rust);
+    opacity: 0.4;
+  }
+
+  .intro-text {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 400;
+    line-height: 1.45;
+    letter-spacing: -0.01em;
+  }
+
+  .intro-text em {
+    font-style: italic;
+    color: var(--rust);
+  }
+
+  .intro-text .highlight {
+    background: linear-gradient(to right, var(--gold), #e8b84b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+  }
+
+  .intro-body {
+    margin-top: 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    max-width: 680px;
+  }
+
+  .intro-body p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #5a4f3e;
+  }
+
+  /* ── ROCKET COUNTER ── */
+  .rocket-counter {
+    margin: 5rem auto;
+    max-width: 900px;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    overflow: hidden;
+  }
+
+  .rocket-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 9rem;
+    font-weight: 900;
+    color: var(--soft);
+    line-height: 1;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .rocket-number::after {
+    content: '🚀';
+    position: absolute;
+    font-size: 3rem;
+    top: 10px;
+    right: -15px;
+    animation: wobble 3s ease infinite;
+  }
+
+  @keyframes wobble {
+    0%, 100% { transform: rotate(-10deg) translateY(0); }
+    25% { transform: rotate(5deg) translateY(-5px); }
+    75% { transform: rotate(-5deg) translateY(5px); }
+  }
+
+  .rocket-desc {
+    flex: 1;
+  }
+
+  .rocket-desc h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    font-style: italic;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+  }
+
+  .rocket-desc p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--muted);
+  }
+
+  /* ── CATEGORIES ── */
+  .categories-section {
+    background: var(--ink);
+    padding: 7rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .categories-section::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(200,84,26,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .categories-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .categories-inner .section-label { color: var(--gold); }
+  .categories-inner .section-label::after { background: var(--gold); }
+
+  .categories-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    color: var(--cream);
+    margin-bottom: 3.5rem;
+    line-height: 1.1;
+  }
+
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .category-card {
+    padding: 2rem;
+    border: 1px solid rgba(245, 240, 232, 0.08);
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s, border-color 0.3s;
+    background: rgba(255,255,255,0.02);
+  }
+
+  .category-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(200,84,26,0.5);
+  }
+
+  .category-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 3px; height: 0;
+    background: var(--rust);
+    transition: height 0.4s;
+  }
+
+  .category-card:hover::before { height: 100%; }
+
+  .category-emoji {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .category-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 0.6rem;
+  }
+
+  .category-desc {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: rgba(245, 240, 232, 0.45);
+  }
+
+  /* ── LATEST POSTS ── */
+  .posts-section {
+    padding: 8rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .posts-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 3.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .posts-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900;
+    line-height: 1.1;
+  }
+
+  .see-all {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--rust);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px;
+    transition: opacity 0.3s;
+  }
+
+  .see-all:hover { opacity: 0.6; }
+
+  .posts-grid {
+    display: grid;
+    gap: 2px;
+  }
+
+  .post-card {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--soft);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.2s;
+    position: relative;
+  }
+
+  .post-card:hover { background: transparent; }
+
+  .post-card:hover .post-title { color: var(--rust); }
+
+  .post-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--soft);
+    line-height: 1;
+    text-align: right;
+    transition: color 0.3s;
+  }
+
+  .post-card:hover .post-number { color: rgba(200,84,26,0.2); }
+
+  .post-body {}
+
+  .post-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 0.4rem;
+  }
+
+  .post-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.3;
+    transition: color 0.3s;
+    margin-bottom: 0.4rem;
+  }
+
+  .post-excerpt {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .post-arrow {
+    font-size: 1.2rem;
+    color: var(--soft);
+    transition: transform 0.3s, color 0.3s;
+  }
+
+  .post-card:hover .post-arrow {
+    transform: translateX(5px);
+    color: var(--rust);
+  }
+
+  /* ── OM MIG ── */
+  .about-section {
+    background: var(--cream);
+    padding: 8rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-section::after {
+    content: '"';
+    position: absolute;
+    top: 2rem; right: 3rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 20rem;
+    color: rgba(200,84,26,0.06);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .about-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .about-visual {
+    position: relative;
+  }
+
+  .about-portrait-placeholder {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: linear-gradient(135deg, var(--ink) 0%, #3d2c14 100%);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-portrait-placeholder::after {
+    content: 'Monika';
+    position: absolute;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-style: italic;
+    color: rgba(245,240,232,0.4);
+    letter-spacing: 0.1em;
+  }
+
+  .about-decoration {
+    position: absolute;
+    top: -15px; right: -15px;
+    width: 60px; height: 60px;
+    border: 2px solid var(--rust);
+    border-radius: 2px;
+  }
+
+  .about-decoration-2 {
+    position: absolute;
+    bottom: -15px; left: -15px;
+    width: 40px; height: 40px;
+    background: var(--gold);
+    opacity: 0.5;
+    border-radius: 50%;
+  }
+
+  .about-content {}
+
+  .about-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-style: italic;
+    line-height: 1.4;
+    margin-bottom: 1.5rem;
+    color: var(--ink);
+  }
+
+  .about-body {
+    font-size: 0.97rem;
+    line-height: 1.9;
+    color: #5a4f3e;
+    margin-bottom: 2rem;
+  }
+
+  .about-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .about-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid rgba(26,18,8,0.2);
+    border-radius: 2px;
+    color: var(--ink);
+    transition: all 0.3s;
+    cursor: default;
+  }
+
+  .about-tag:hover {
+    background: var(--ink);
+    color: var(--cream);
+    border-color: var(--ink);
+  }
+
+  /* ── FREDAGSHÄLSNING ── */
+  .fredags-section {
+    background: var(--ink);
+    padding: 8rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .fredags-section::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(212,168,67,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .fredags-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .fredags-inner .section-label { color: var(--gold); }
+  .fredags-inner .section-label::after { background: var(--gold); }
+
+  .fredags-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 900;
+    color: var(--cream);
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+  }
+
+  .fredags-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .fredags-text {
+    font-size: 1rem;
+    line-height: 1.9;
+    color: rgba(245,240,232,0.6);
+    margin-bottom: 1.5rem;
+  }
+
+  .fredags-quote {
+    border-left: 2px solid var(--rust);
+    padding: 1rem 1.5rem;
+    margin: 2rem 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--cream);
+    line-height: 1.6;
+  }
+
+  .fredags-music {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(245,240,232,0.08);
+    border-radius: 4px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .fredags-music::before {
+    content: '♫';
+    position: absolute;
+    top: -10px; right: 10px;
+    font-size: 8rem;
+    color: rgba(212,168,67,0.06);
+    line-height: 1;
+  }
+
+  .music-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .music-label::before {
+    content: '';
+    display: inline-block;
+    width: 8px; height: 8px;
+    background: var(--rust);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  .music-track-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 0.3rem;
+  }
+
+  .music-artist {
+    font-size: 0.85rem;
+    color: rgba(245,240,232,0.45);
+    margin-bottom: 1.5rem;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.08em;
+  }
+
+  .music-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 30px;
+    margin-bottom: 1.5rem;
+  }
+
+  .music-bar {
+    width: 4px;
+    background: var(--gold);
+    border-radius: 2px;
+    opacity: 0.6;
+    animation: barDance ease infinite;
+  }
+
+  @keyframes barDance {
+    0%, 100% { height: 4px; }
+    50% { height: var(--h); }
+  }
+
+  .spotify-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.8rem 1.4rem;
+    background: #1DB954;
+    color: white;
+    border-radius: 2px;
+    text-decoration: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: opacity 0.3s, transform 0.2s;
+  }
+
+  .spotify-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+
+  .meningsfullhet-section {
+    padding: 8rem 2rem;
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .meningsfullhet-symbol {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 2rem;
+  }
+
+  .meningsfullhet-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 2rem;
+  }
+
+  .meningsfullhet-title em {
+    font-style: italic;
+    color: var(--rust);
+  }
+
+  .meningsfullhet-body {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: #5a4f3e;
+    max-width: 520px;
+    margin: 0 auto 2.5rem;
+  }
+
+  .meningsfullhet-divider {
+    width: 40px;
+    height: 2px;
+    background: var(--gold);
+    margin: 2.5rem auto;
+    opacity: 0.5;
+  }
+
+  .meningsfullhet-citat {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.6;
+    position: relative;
+    padding: 0 2rem;
+  }
+
+  .meningsfullhet-citat::before,
+  .meningsfullhet-citat::after {
+    content: '"';
+    font-size: 4rem;
+    color: var(--soft);
+    font-family: 'Playfair Display', serif;
+    line-height: 0;
+    vertical-align: -1rem;
+  }
+
+  @media (max-width: 700px) {
+    .fredags-inner { grid-template-columns: 1fr; gap: 3rem; }
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    font-style: italic;
+    color: var(--cream);
+    margin-bottom: 1rem;
+  }
+
+  .footer-logo span { color: var(--gold); }
+
+  .footer-tagline {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.3);
+    margin-bottom: 2rem;
+  }
+
+  .footer-ig {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: rgba(245,240,232,0.5);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-ig:hover { color: var(--gold); }
+
+  .footer-copy {
+    margin-top: 3rem;
+    font-size: 0.75rem;
+    color: rgba(245,240,232,0.2);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    .intro-body { grid-template-columns: 1fr; }
+    .about-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .about-portrait-placeholder { aspect-ratio: 4/3; }
+    .rocket-counter { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .rocket-number { font-size: 5rem; }
+    .post-card { grid-template-columns: 50px 1fr auto; gap: 1rem; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-bg">
+    <div class="header-stripe"></div>
+    <div class="rocket-field" id="rocketField"></div>
+  </div>
+
+  <div class="header-content">
+    <p class="site-eyebrow">✦ En blogg om vardagshjärna och framtidsnyfikenhet</p>
+    <h1 class="site-title">
+      <span class="make">make it</span>
+      <span class="happen">happen.</span>
+    </h1>
+    <p class="header-tagline">
+      Mitt huvud har hundra raketer — startklara, i behov av putsning, reparation, uppdatering. Min nyfikenhet är min dragningskraft.
+    </p>
+    <a class="header-instagram" href="https://instagram.com/monikamakeithappen" target="_blank">
+      <span class="instagram-dot"></span>
+      @monikamakeithappen
+    </a>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#"><span>M</span>onika Make It Happen</a>
+  <ul class="nav-links">
+    <li><a href="#tankar">Tankar</a></li>
+    <li><a href="#kategorier">Ämnen</a></li>
+    <li><a href="#fredagshalsning">Fredagshälsning</a></li>
+    <li><a href="#om">Om mig</a></li>
+  </ul>
+</nav>
+
+<!-- INTRO -->
+<section class="intro-section" id="tankar">
+  <p class="section-label">Välkommen hit</p>
+  <h2 class="intro-text">
+    Det här är inte en snygg feed.<br>
+    Det är <em>ett huvud</em> — med <span class="highlight">hundra raketer</span> i rörelse.
+  </h2>
+  <div class="intro-body">
+    <p>Ibland är tankarna startklara och susar iväg. Ibland behöver de putsas, fejas, repareras eller laddas om. Allt det händer här, öppet och på riktigt.</p>
+    <p>Vardag, nyfikenhet, frågor utan svar och svar utan frågor. Det är det som driver mig — och det delar jag gärna med dig.</p>
+  </div>
+</section>
+
+<!-- ROCKET COUNTER -->
+<div class="rocket-counter">
+  <div class="rocket-number">100</div>
+  <div class="rocket-desc">
+    <h3>Raketer i mitt huvud —<br>ingen landar på samma ställe.</h3>
+    <p>Från stora livsfrågor till småsaker som plötsligt känns avgörande. Från jobbet till köket. Från det som skaver till det som lyser. Allt är välkommet.</p>
+  </div>
+</div>
+
+<!-- KATEGORIER -->
+<section class="categories-section" id="kategorier">
+  <div class="categories-inner">
+    <p class="section-label">Vad du hittar här</p>
+    <h2 class="categories-title">Ämnen jag<br>inte kan låta bli</h2>
+    <div class="categories-grid">
+      <div class="category-card">
+        <span class="category-emoji">🧠</span>
+        <div class="category-name">Huvud & Tanke</div>
+        <p class="category-desc">Reflektioner, insikter och idéer som poppar upp mitt i vardagen.</p>
+      </div>
+      <div class="category-card">
+        <span class="category-emoji">🚀</span>
+        <div class="category-name">Framåt & Nytt</div>
+        <p class="category-desc">Nyfikenhet på teknik, förändring och det som inte finns ännu.</p>
+      </div>
+      <div class="category-card">
+        <span class="category-emoji">☕</span>
+        <div class="category-name">Vardag & Verkliga</div>
+        <p class="category-desc">De små sakerna som faktiskt är stora. Hemma, på jobbet, däremellan.</p>
+      </div>
+      <div class="category-card">
+        <span class="category-emoji">🔧</span>
+        <div class="category-name">Laga & Lära</div>
+        <p class="category-desc">Saker som gick sönder, behövde fixas — och vad det lärde mig.</p>
+      </div>
+      <div class="category-card">
+        <span class="category-emoji">🎶</span>
+        <div class="category-name">Musik & Stämning</div>
+        <p class="category-desc">Ljudspår till livet. Det som sätter tonen för dagen.</p>
+      </div>
+      <div class="category-card">
+        <span class="category-emoji">❓</span>
+        <div class="category-name">Öppna Frågor</div>
+        <p class="category-desc">Saker jag inte vet svaret på — men ändå måste skriva om.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SENASTE INLÄGG -->
+<section class="posts-section">
+  <div class="posts-header">
+    <h2 class="posts-title">Senaste<br>tankar</h2>
+    <a class="see-all" href="#">Se alla inlägg →</a>
+  </div>
+  <div class="posts-grid">
+    <a class="post-card" href="#">
+      <div class="post-number">01</div>
+      <div class="post-body">
+        <div class="post-tag">Huvud & Tanke</div>
+        <div class="post-title">Varför är nyfikenhet starkare än plan?</div>
+        <div class="post-excerpt">Jag hade tänkt skriva om något helt annat idag. Men sen undrade jag bara...</div>
+      </div>
+      <div class="post-arrow">→</div>
+    </a>
+    <a class="post-card" href="#">
+      <div class="post-number">02</div>
+      <div class="post-body">
+        <div class="post-tag">Vardag & Verkliga</div>
+        <div class="post-title">Onsdagen som lärde mig något om tisdag</div>
+        <div class="post-excerpt">Det är inte alltid de stora momenten. Ibland är det just det som händer mitt i ingenting.</div>
+      </div>
+      <div class="post-arrow">→</div>
+    </a>
+    <a class="post-card" href="#">
+      <div class="post-number">03</div>
+      <div class="post-body">
+        <div class="post-tag">Framåt & Nytt</div>
+        <div class="post-title">AI i min vardag — vad jag faktiskt märker</div>
+        <div class="post-excerpt">Inte hype. Inte rädsla. Bara ärliga observationer från en vanlig dag.</div>
+      </div>
+      <div class="post-arrow">→</div>
+    </a>
+    <a class="post-card" href="#">
+      <div class="post-number">04</div>
+      <div class="post-body">
+        <div class="post-tag">Laga & Lära</div>
+        <div class="post-title">Raket #47 behövde en skiftnyckel</div>
+        <div class="post-excerpt">Ibland är lösningen inte brilljant. Den är bara envis.</div>
+      </div>
+      <div class="post-arrow">→</div>
+    </a>
+  </div>
+</section>
+
+<!-- OM MIG -->
+<section class="about-section" id="om">
+  <div class="about-inner">
+    <div class="about-visual">
+      <div class="about-portrait-placeholder">👩</div>
+      <div class="about-decoration"></div>
+      <div class="about-decoration-2"></div>
+    </div>
+    <div class="about-content">
+      <p class="section-label">Om mig</p>
+      <p class="about-quote">"Jag är Monika — och mitt huvud stannar aldrig riktigt."</p>
+      <p class="about-body">
+        Jag jobbar, funderar, löser saker, förvirrar mig och börjar om. Varje dag är lite som att ha hundra raketer startklara — några skjuter iväg perfekt, några behöver putsas, några är i total behov av reparation.
+      </p>
+      <p class="about-body">
+        Det här är min plats att skriva ner allt det. Utan filter, utan agenda — bara äkta nyfikenhet på livet som det är.
+      </p>
+      <div class="about-tags">
+        <span class="about-tag">Stockholm</span>
+        <span class="about-tag">Nyfikenhet</span>
+        <span class="about-tag">Vardag</span>
+        <span class="about-tag">Musik</span>
+        <span class="about-tag">Teknik</span>
+        <span class="about-tag">Reflektioner</span>
+        <span class="about-tag">Make it happen</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FREDAGSHÄLSNING -->
+<section class="fredags-section" id="fredagshalsning">
+  <div class="fredags-inner">
+    <div>
+      <p class="section-label">Varje fredag</p>
+      <h2 class="fredags-title">Fredags<em>hälsning</em></h2>
+      <p class="fredags-text">
+        En stund varje fredag för att landa. Ett spår, en tanke, ett andetag. Hitta nuet och vila lite innan helgen tar vid.
+      </p>
+      <blockquote class="fredags-quote">
+        Det behöver inte vara stort. Det behöver bara vara äkta.
+      </blockquote>
+      <p class="fredags-text">
+        Veckans spellista är kurerad för exakt det här — ett soundtrack för fredagskvällen när du äntligen kan andas ut.
+      </p>
+    </div>
+    <div class="fredags-music">
+      <div class="music-label">Veckans spår</div>
+      <div class="music-track-name">Fredagsfredning</div>
+      <div class="music-artist">Kuraterad av Monika · Spotify</div>
+      <div class="music-bars" id="musicBars"></div>
+      <a class="spotify-btn" href="https://open.spotify.com/playlist/63TWmfJj2I1Gv1pWRKGiqe" target="_blank">
+        ▶ Lyssna på Spotify
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- MENINGSFULLHET -->
+<section class="meningsfullhet-section">
+  <span class="meningsfullhet-symbol">✦</span>
+  <h2 class="meningsfullhet-title">Det viktigaste är att<br>känna sig <em>meningsfull</em></h2>
+  <div class="meningsfullhet-divider"></div>
+  <p class="meningsfullhet-body">
+    Inte perfekt. Inte produktiv varje dag. Inte alltid med svaren. Men meningsfull — i det lilla och det stora, i vardagen och i de stora frågorna.
+  </p>
+  <p class="meningsfullhet-body">
+    Det är därför jag skriver. Det är därför raketernas motor håller igång. Nyfikenhet är bränslet — mening är destinationen.
+  </p>
+  <div class="meningsfullhet-citat">
+    Varje raket som lyfter bär på ett syfte. Även de som ännu inte vet vart de ska.
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo"><span>M</span>onika Make It Happen</div>
+  <div class="footer-tagline">@monikamakeithappen · hundra raketer · Stockholm</div>
+  <a class="footer-ig" href="https://instagram.com/monikamakeithappen" target="_blank">instagram.com/monikamakeithappen</a>
+  <div class="footer-copy">© 2026 Monika Make It Happen. Alla rättigheter förbehållna.</div>
+</footer>
+
+<script>
+  // Generate floating rockets
+  const field = document.getElementById('rocketField');
+  const emojis = ['🚀','🛸','⚡','✨','💫','🌟','🔥'];
+  const count = 25;
+
+  for (let i = 0; i < count; i++) {
+    const el = document.createElement('span');
+    el.className = 'rocket';
+    el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    el.style.left = Math.random() * 100 + '%';
+    el.style.animationDuration = (8 + Math.random() * 18) + 's';
+    el.style.animationDelay = (Math.random() * 20) + 's';
+    el.style.fontSize = (0.7 + Math.random() * 1.2) + 'rem';
+    el.style.opacity = '0';
+    field.appendChild(el);
+  }
+
+  // Intersection observer for subtle entrance animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.category-card, .post-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+
+  // Music bars animation
+  const barsContainer = document.getElementById('musicBars');
+  if (barsContainer) {
+    for (let i = 0; i < 18; i++) {
+      const bar = document.createElement('div');
+      bar.className = 'music-bar';
+      const h = (8 + Math.random() * 22);
+      bar.style.setProperty('--h', h + 'px');
+      bar.style.animationDuration = (0.6 + Math.random() * 0.8) + 's';
+      bar.style.animationDelay = (Math.random() * 0.5) + 's';
+      barsContainer.appendChild(bar);
+    }
+  }
+</script>
+</body>
+</html>
