@@ -136,6 +136,11 @@
     will-change: transform;
   }
 
+  .floater.raket {
+    transform-origin: center center;
+    filter: none;
+  }
+
   /* Mycket långsam drift uppåt */
   @keyframes drift {
     0%   { transform: translateY(0px) rotate(var(--r0)); opacity: 0; }
@@ -144,10 +149,18 @@
     100% { transform: translateY(var(--travel)) rotate(var(--r1)); opacity: 0; }
   }
 
-  /* Subtil horisontal gunga */
-  @keyframes sway {
-    0%, 100% { margin-left: 0; }
-    50%       { margin-left: var(--sway); }
+  @keyframes drift {
+    0%   { opacity: 0; }
+    8%   { opacity: var(--max-opacity); }
+    90%  { opacity: var(--max-opacity); }
+    100% { opacity: 0; }
+  }
+
+  @keyframes driftUp {
+    0%   { transform: translateY(0) rotate(var(--rot)); opacity: 0; }
+    8%   { opacity: var(--max-opacity); }
+    90%  { opacity: var(--max-opacity); }
+    100% { transform: translateY(var(--travel)) rotate(var(--rot)); opacity: 0; }
   }
 
   .header-kicker {
@@ -852,8 +865,8 @@
       </div>
       <div class="musik-kort">
         <div class="musik-etikett">🚀 Veckans uppskjutning</div>
-        <div class="musik-titel">Fredagsfeeling</div>
-        <div class="musik-artist">Monikas spellista · Spotify</div>
+        <div class="musik-titel">Fredagsfredning</div>
+        <div class="musik-artist">Kuraterad av Monika · Spotify</div>
         <a class="spotify-knapp" href="https://open.spotify.com/playlist/63TWmfJj2I1Gv1pWRKGiqe" target="_blank">
           ▶ Lyssna på Spotify
         </a>
@@ -923,11 +936,12 @@
 </footer>
 
 <script>
-  // Mycket få, mycket långsamma flygare — raketer och tefat
   const container = document.getElementById('floaters');
   const objects = [
-    { emoji: '🚀', count: 4 },
-    { emoji: '🛸', count: 3 },
+    { emoji: '🚀', count: 5 },
+    { emoji: '🪐', count: 2 },
+    { emoji: '🌍', count: 1 },
+    { emoji: '🌙', count: 2 },
   ];
 
   objects.forEach(({ emoji, count }) => {
@@ -936,30 +950,23 @@
       el.className = 'floater';
       el.textContent = emoji;
 
-      // Slumpmässig position och storlek
-      const size = 0.9 + Math.random() * 0.8;
+      const size = emoji === '🚀' ? (0.9 + Math.random() * 0.7) : (1.2 + Math.random() * 1.2);
       el.style.fontSize = size + 'rem';
       el.style.left = (5 + Math.random() * 88) + '%';
       el.style.bottom = '-5%';
 
-      // Mycket lång animationstid — 35 till 65 sekunder
-      const duration = 35 + Math.random() * 30;
-      const delay = Math.random() * 40;
+      const duration = emoji === '🚀' ? (30 + Math.random() * 25) : (50 + Math.random() * 40);
+      const delay = Math.random() * 50;
 
-      // Subtil rotation och sidogunga
-      const r0 = (Math.random() * 20 - 10) + 'deg';
-      const r1 = (Math.random() * 20 - 10) + 'deg';
-      const travel = -(110 + Math.random() * 20) + 'vh';
-      const sway = (Math.random() * 16 - 8) + 'px';
-      const maxOpacity = 0.18 + Math.random() * 0.18;
+      const travel = -(110 + Math.random() * 15) + 'vh';
+      const maxOpacity = emoji === '🚀' ? (0.22 + Math.random() * 0.18) : (0.12 + Math.random() * 0.12);
 
-      el.style.setProperty('--r0', r0);
-      el.style.setProperty('--r1', r1);
+      // Raketer roteras -45deg så de pekar rakt upp, planeter har ingen rotation
+      const rot = emoji === '🚀' ? '-45deg' : '0deg';
+      el.style.setProperty('--rot', rot);
       el.style.setProperty('--travel', travel);
-      el.style.setProperty('--sway', sway);
       el.style.setProperty('--max-opacity', maxOpacity);
-
-      el.style.animation = `drift ${duration}s linear ${delay}s infinite`;
+      el.style.animation = `driftUp ${duration}s linear ${delay}s infinite`;
 
       container.appendChild(el);
     }
