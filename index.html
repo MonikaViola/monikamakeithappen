@@ -771,7 +771,7 @@
     <a class="header-ig" href="https://instagram.com/monikamakeithappen" target="_blank">
       ✦ @monikamakeithappen
     </a>
-    <p class="header-updated">Senast uppdaterad: 6 juni 2025</p>
+    <p class="header-updated" id="header-updated">Senast uppdaterad: 6 juni 2025</p>
   </div>
 </header>
 
@@ -980,6 +980,20 @@
       container.appendChild(el);
     }
   });
+</script>
+<!-- Senast uppdaterad: sätts automatiskt från filens senast ändrade datum -->
+<script>
+  (function () {
+    var el = document.getElementById('header-updated');
+    if (!el) return;
+    var d = new Date(document.lastModified);
+    // Fall tillbaka på befintlig text om datumet saknas eller är ogiltigt
+    if (isNaN(d.getTime()) || d.getFullYear() < 2000) return;
+    var datum = new Intl.DateTimeFormat('sv-SE', {
+      day: 'numeric', month: 'long', year: 'numeric'
+    }).format(d);
+    el.textContent = 'Senast uppdaterad: ' + datum;
+  })();
 </script>
 </body>
 </html>
