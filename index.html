@@ -1066,9 +1066,12 @@
         el.style.left = (4 + Math.random() * 90) + '%';
         el.style.bottom = '-8%';
         el.style.setProperty('--rot', '0deg');
-        el.style.setProperty('--travel', -(115 + Math.random() * 15) + 'vh');
+        // Varierad väglängd + fart + slumpmässig startpunkt (negativ delay) = mer levande, osynkad rörelse
+        const dur = dMin + Math.random() * dRange;
+        const delay = -(Math.random() * dur);
+        el.style.setProperty('--travel', -(110 + Math.random() * 40) + 'vh');
         el.style.setProperty('--max-opacity', oMin + Math.random() * oRange);
-        el.style.animation = `driftUp ${dMin + Math.random() * dRange}s linear ${Math.random() * 55}s infinite`;
+        el.style.animation = `driftUp ${dur.toFixed(1)}s linear ${delay.toFixed(1)}s infinite`;
         container.appendChild(el);
       }
     });
@@ -1077,16 +1080,16 @@
   // Hero (mörk) — raketer + planeter
   const hero = document.getElementById('floaters');
   if (hero) spawnFloaters(hero, [
-    { type: 'raket', count: 6, sMin: 2.2, sRange: 1.6, oMin: 0.5, oRange: 0.25, dMin: 34, dRange: 26 },
-    { emoji: '🪐', count: 2, sMin: 1.2, sRange: 1.2, oMin: 0.12, oRange: 0.12, dMin: 50, dRange: 40 },
-    { emoji: '🌍', count: 1, sMin: 1.2, sRange: 1.2, oMin: 0.12, oRange: 0.12, dMin: 50, dRange: 40 },
-    { emoji: '🌙', count: 2, sMin: 1.2, sRange: 1.2, oMin: 0.12, oRange: 0.12, dMin: 50, dRange: 40 },
+    { type: 'raket', count: 6, sMin: 2.2, sRange: 1.6, oMin: 0.5, oRange: 0.25, dMin: 26, dRange: 54 },
+    { emoji: '🪐', count: 2, sMin: 1.2, sRange: 1.2, oMin: 0.12, oRange: 0.12, dMin: 55, dRange: 65 },
+    { emoji: '🌍', count: 1, sMin: 1.2, sRange: 1.2, oMin: 0.12, oRange: 0.12, dMin: 55, dRange: 65 },
+    { emoji: '🌙', count: 2, sMin: 1.2, sRange: 1.2, oMin: 0.12, oRange: 0.12, dMin: 55, dRange: 65 },
   ]);
 
   // Sidfot (mörk) — bara raketer, lite färre
   document.querySelectorAll('.footer-floaters').forEach((f) =>
     spawnFloaters(f, [
-      { type: 'raket', count: 4, sMin: 1.8, sRange: 1.2, oMin: 0.5, oRange: 0.22, dMin: 38, dRange: 24 },
+      { type: 'raket', count: 4, sMin: 1.8, sRange: 1.2, oMin: 0.5, oRange: 0.22, dMin: 30, dRange: 48 },
     ])
   );
 </script>
