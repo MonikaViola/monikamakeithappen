@@ -438,6 +438,11 @@
     overflow: hidden;
   }
 
+  .fredags .section-wrap {
+    position: relative;
+    z-index: 2;
+  }
+
   /* Subtilt djupljus i hörnet */
   .fredags::before {
     content: '';
@@ -921,6 +926,7 @@
 
 <!-- FREDAGSHÄLSNING -->
 <section class="fredags" id="fredagshalsning">
+  <div class="floaters fredags-floaters"></div>
   <div class="section-wrap">
     <p class="label">Raket #100 — Varje fredag</p>
     <div class="fredags-grid">
@@ -1094,6 +1100,16 @@
   document.querySelectorAll('.footer-floaters').forEach((f) =>
     spawnFloaters(f, [
       { type: 'raket', count: 7, sMin: 1.8, sRange: 1.4, oMin: 0.5, oRange: 0.24, dMin: 30, dRange: 48 },
+    ])
+  );
+
+  // Mittsektion Fredagshälsning (mörk) — raketer + planeter, nedtonat bakom texten
+  document.querySelectorAll('.fredags-floaters').forEach((f) =>
+    spawnFloaters(f, [
+      { type: 'raket', count: 5, sMin: 1.8, sRange: 1.3, oMin: 0.4, oRange: 0.18, dMin: 30, dRange: 50 },
+      { emoji: '🪐', count: 1, sMin: 1.1, sRange: 1.1, oMin: 0.1, oRange: 0.12, dMin: 55, dRange: 65 },
+      { emoji: '🌍', count: 1, sMin: 1.1, sRange: 1.1, oMin: 0.1, oRange: 0.12, dMin: 55, dRange: 65 },
+      { emoji: '🌙', count: 1, sMin: 1.1, sRange: 1.1, oMin: 0.1, oRange: 0.12, dMin: 55, dRange: 65 },
     ])
   );
 </script>
