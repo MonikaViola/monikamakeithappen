@@ -385,7 +385,7 @@
     font-family: 'Playfair Display', serif;
     font-size: 1rem;
     font-weight: 900;
-    color: var(--soft);
+    color: var(--rust);
     line-height: 1.3;
     padding-top: 0.2rem;
     text-align: right;
@@ -705,6 +705,18 @@
     background: #1e1208;
     padding: 4rem 2.5rem;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+    min-height: 46vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  footer > *:not(.floaters) {
+    position: relative;
+    z-index: 2;
   }
 
   .footer-logo {
@@ -803,7 +815,7 @@
 <header>
   <div class="floaters" id="floaters"></div>
   <div class="header-content">
-    <p class="header-kicker">✦ En blogg om vardagshjärna framtid och nyfikenhet</p>
+    <p class="header-kicker">✦ En blogg om vardagshjärna och framtidsnyfikenhet</p>
     <h1 class="header-title">
       <span class="make">make it</span>
       happen.
@@ -858,7 +870,7 @@
       <a class="inlagg" href="#">
   <div class="inlagg-nr"><svg class="ikon-raket" aria-hidden="true"><use href="#raket-rost"/></svg> 05</div>
   <div>
-    <div class="inlagg-tag">Musik & Stämning · Startklara</div>
+    <div class="inlagg-tag">Musik & Stämning · Startklarad</div>
     <div class="inlagg-titel">Fredag. Hejdå på riktigt.</div>
     <div class="inlagg-ingress">Idag var jag på en begravning. Inte den sorgligaste sortens — utan den där man sitter och känner att ett liv faktiskt levdes. Jag gick därifrån och tänkte på musik. På vilken spellista jag skulle vilja att folk lyssnade på när det är dags att säga hejdå till mig.</div>
     <div class="inlagg-datum">13 juni 2026</div>
@@ -894,7 +906,7 @@
       <a class="inlagg" href="#">
         <div class="inlagg-nr"><svg class="ikon-raket" aria-hidden="true"><use href="#raket-rost"/></svg> 01</div>
         <div>
-          <div class="inlagg-tag">Huvud & Tanke · Startklara</div>
+          <div class="inlagg-tag">Huvud & Tanke · Startklarad</div>
           <div class="inlagg-titel">Varför är nyfikenhet starkare än plan?</div>
           <div class="inlagg-ingress">Jag hade tänkt skriva om något helt annat idag. Men sen undrade jag bara...</div>
           <div class="inlagg-datum">10 maj 2026</div>
@@ -1024,7 +1036,7 @@
             data-emit-metadata="0"
             data-input-position="top"
             data-theme="light"
-            data-lang="sv"
+            data-lang="en"
             crossorigin="anonymous"
             async>
     </script>
@@ -1033,6 +1045,7 @@
 
 <!-- FOOTER -->
 <footer>
+  <div class="floaters footer-floaters"></div>
   <div class="footer-logo"><span>M</span>onika Make It Happen</div>
   <div class="footer-sub">100 raketer · @monikamakeithappen · Stockholm</div>
   <a class="footer-ig" href="https://instagram.com/monikamakeithappen" target="_blank">instagram.com/monikamakeithappen</a>
@@ -1040,45 +1053,42 @@
 </footer>
 
 <script>
-  const container = document.getElementById('floaters');
+  const RKT = '<svg><use href="#raket-cream"/></svg>';
 
-  // Egen raket i Monikas palett — pekar rakt upp, med rödorange flamma
-  const ROCKET_SVG = '<svg viewBox="0 0 64 104" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M27 81 C27 93 32 102 32 102 C32 102 37 93 37 81 Z" fill="#d8541a"/><path d="M30 82 C30 91 32 97 32 97 C32 97 34 91 34 82 Z" fill="#f4a73c"/><path d="M21 64 L9 87 L21 79 Z" fill="#a83d0a"/><path d="M43 64 L55 87 L43 79 Z" fill="#a83d0a"/><path d="M27 73 L37 73 L35 82 L29 82 Z" fill="#8a6308"/><path d="M22 32 Q22 31 24 31 L40 31 Q42 31 42 32 L42 72 Q42 75 39 75 L25 75 Q22 75 22 72 Z" fill="#f7f2ea"/><path d="M32 5 C40 14 43 24 43 33 L21 33 C21 24 24 14 32 5 Z" fill="#a83d0a"/><rect x="22" y="59.5" width="20" height="3.5" fill="#b8860a"/><circle cx="32" cy="47" r="8.5" fill="#a83d0a"/><circle cx="32" cy="47" r="5.5" fill="#2a1c0d"/><circle cx="29.5" cy="44.5" r="1.8" fill="#f7f2ea" opacity="0.7"/></svg>';
+  function spawnFloaters(container, conf) {
+    conf.forEach(({ type, emoji, count, sMin, sRange, oMin, oRange, dMin, dRange }) => {
+      const isRaket = type === 'raket';
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement('span');
+        el.className = isRaket ? 'floater raket' : 'floater';
+        if (isRaket) { el.innerHTML = RKT; } else { el.textContent = emoji; }
+        el.style.fontSize = (sMin + Math.random() * sRange) + 'rem';
+        el.style.left = (4 + Math.random() * 90) + '%';
+        el.style.bottom = '-8%';
+        el.style.setProperty('--rot', '0deg');
+        el.style.setProperty('--travel', -(115 + Math.random() * 15) + 'vh');
+        el.style.setProperty('--max-opacity', oMin + Math.random() * oRange);
+        el.style.animation = `driftUp ${dMin + Math.random() * dRange}s linear ${Math.random() * 55}s infinite`;
+        container.appendChild(el);
+      }
+    });
+  }
 
-  const objects = [
-    { type: 'raket', count: 6 },
-    { emoji: '🪐', count: 2 },
-    { emoji: '🌍', count: 1 },
-    { emoji: '🌙', count: 2 },
-  ];
+  // Hero (mörk) — raketer + planeter
+  const hero = document.getElementById('floaters');
+  if (hero) spawnFloaters(hero, [
+    { type: 'raket', count: 6, sMin: 2.2, sRange: 1.6, oMin: 0.5, oRange: 0.25, dMin: 34, dRange: 26 },
+    { emoji: '🪐', count: 2, sMin: 1.2, sRange: 1.2, oMin: 0.12, oRange: 0.12, dMin: 50, dRange: 40 },
+    { emoji: '🌍', count: 1, sMin: 1.2, sRange: 1.2, oMin: 0.12, oRange: 0.12, dMin: 50, dRange: 40 },
+    { emoji: '🌙', count: 2, sMin: 1.2, sRange: 1.2, oMin: 0.12, oRange: 0.12, dMin: 50, dRange: 40 },
+  ]);
 
-  objects.forEach(({ type, emoji, count }) => {
-    const isRaket = type === 'raket';
-    for (let i = 0; i < count; i++) {
-      const el = document.createElement('span');
-      el.className = isRaket ? 'floater raket' : 'floater';
-      if (isRaket) { el.innerHTML = ROCKET_SVG; } else { el.textContent = emoji; }
-
-      const size = isRaket ? (2.2 + Math.random() * 1.6) : (1.2 + Math.random() * 1.2);
-      el.style.fontSize = size + 'rem';
-      el.style.left = (4 + Math.random() * 90) + '%';
-      el.style.bottom = '-8%';
-
-      const duration = isRaket ? (34 + Math.random() * 26) : (50 + Math.random() * 40);
-      const delay = Math.random() * 55;
-
-      const travel = -(115 + Math.random() * 15) + 'vh';
-      const maxOpacity = isRaket ? (0.5 + Math.random() * 0.25) : (0.12 + Math.random() * 0.12);
-
-      // Allt pekar rakt upp
-      el.style.setProperty('--rot', '0deg');
-      el.style.setProperty('--travel', travel);
-      el.style.setProperty('--max-opacity', maxOpacity);
-      el.style.animation = `driftUp ${duration}s linear ${delay}s infinite`;
-
-      container.appendChild(el);
-    }
-  });
+  // Sidfot (mörk) — bara raketer, lite färre
+  document.querySelectorAll('.footer-floaters').forEach((f) =>
+    spawnFloaters(f, [
+      { type: 'raket', count: 4, sMin: 1.8, sRange: 1.2, oMin: 0.5, oRange: 0.22, dMin: 38, dRange: 24 },
+    ])
+  );
 </script>
 <!-- Senast uppdaterad: sätts automatiskt från filens senast ändrade datum -->
 <script>
