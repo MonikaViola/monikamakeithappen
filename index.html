@@ -147,6 +147,13 @@
     height: 1.625em;
   }
 
+  .ikon-raket {
+    display: inline-block;
+    width: 0.72em;
+    height: 1.17em;
+    vertical-align: -0.18em;
+  }
+
   /* Mycket långsam drift uppåt */
   @keyframes drift {
     0%   { transform: translateY(0px) rotate(var(--r0)); opacity: 0; }
@@ -303,12 +310,12 @@
     position: relative;
   }
 
-  .raket-siffra::after {
-    content: '🚀';
+  .raket-siffra-ikon {
     position: absolute;
-    font-size: 2.2rem;
-    top: 6px;
-    right: -20px;
+    top: 4px;
+    right: -30px;
+    width: 1.35rem;
+    height: 2.2rem;
   }
 
   .raket-text h3 {
@@ -751,6 +758,35 @@
 </head>
 <body>
 
+<!-- RAKET-IKONER (återanvändbar sprite) -->
+<svg width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false">
+  <symbol id="raket-cream" viewBox="0 0 64 104">
+    <path d="M27 81 C27 93 32 102 32 102 C32 102 37 93 37 81 Z" fill="#d8541a"/>
+    <path d="M30 82 C30 91 32 97 32 97 C32 97 34 91 34 82 Z" fill="#f4a73c"/>
+    <path d="M21 64 L9 87 L21 79 Z" fill="#a83d0a"/>
+    <path d="M43 64 L55 87 L43 79 Z" fill="#a83d0a"/>
+    <path d="M27 73 L37 73 L35 82 L29 82 Z" fill="#8a6308"/>
+    <path d="M22 32 Q22 31 24 31 L40 31 Q42 31 42 32 L42 72 Q42 75 39 75 L25 75 Q22 75 22 72 Z" fill="#f7f2ea"/>
+    <path d="M32 5 C40 14 43 24 43 33 L21 33 C21 24 24 14 32 5 Z" fill="#a83d0a"/>
+    <rect x="22" y="59.5" width="20" height="3.5" fill="#b8860a"/>
+    <circle cx="32" cy="47" r="8.5" fill="#a83d0a"/>
+    <circle cx="32" cy="47" r="5.5" fill="#2a1c0d"/>
+    <circle cx="29.5" cy="44.5" r="1.8" fill="#f7f2ea" opacity="0.7"/>
+  </symbol>
+  <symbol id="raket-rost" viewBox="0 0 64 104">
+    <path d="M27 81 C27 93 32 102 32 102 C32 102 37 93 37 81 Z" fill="#d8541a"/>
+    <path d="M30 82 C30 91 32 97 32 97 C32 97 34 91 34 82 Z" fill="#f4a73c"/>
+    <path d="M21 64 L9 87 L21 79 Z" fill="#8f3208"/>
+    <path d="M43 64 L55 87 L43 79 Z" fill="#8f3208"/>
+    <path d="M27 73 L37 73 L35 82 L29 82 Z" fill="#6e4e06"/>
+    <path d="M22 32 Q22 31 24 31 L40 31 Q42 31 42 32 L42 72 Q42 75 39 75 L25 75 Q22 75 22 72 Z" fill="#a83d0a"/>
+    <path d="M32 5 C40 14 43 24 43 33 L21 33 C21 24 24 14 32 5 Z" fill="#8f3208"/>
+    <rect x="22" y="59.5" width="20" height="3.5" fill="#b8860a"/>
+    <circle cx="32" cy="47" r="8.5" fill="#8f3208"/>
+    <circle cx="32" cy="47" r="5.5" fill="#f7f2ea"/>
+  </symbol>
+</svg>
+
 <!-- NAV -->
 <nav>
   <a class="nav-logo" href="#"><span>M</span>onika Make It Happen</a>
@@ -802,7 +838,7 @@
 <section class="raket-band">
   <div class="section-wrap">
     <div class="raket-inner">
-      <div class="raket-siffra">100</div>
+      <div class="raket-siffra">100<svg class="raket-siffra-ikon" aria-hidden="true"><use href="#raket-rost"/></svg></div>
       <div class="raket-text">
         <h3>Hundra raketer — ingen landar på samma ställe.</h3>
         <p>Några skjuter iväg i gryningen. Några väntar fortfarande på sin bränslepåfyllning. Några har jag tappat bort — och hittat igen på oväntat ställe. Det är mitt huvud. Välkommen in.</p>
@@ -820,7 +856,7 @@
     </div>
     <div class="inlagg-lista">
       <a class="inlagg" href="#">
-  <div class="inlagg-nr">🚀 05</div>
+  <div class="inlagg-nr"><svg class="ikon-raket" aria-hidden="true"><use href="#raket-rost"/></svg> 05</div>
   <div>
     <div class="inlagg-tag">Musik & Stämning · Startklarad</div>
     <div class="inlagg-titel">Fredag. Hejdå på riktigt.</div>
@@ -829,7 +865,7 @@
   </div>
 </a>
       <a class="inlagg" href="#">
-        <div class="inlagg-nr">🚀 04</div>
+        <div class="inlagg-nr"><svg class="ikon-raket" aria-hidden="true"><use href="#raket-rost"/></svg> 04</div>
         <div>
           <div class="inlagg-tag">Framåt & Nytt · Ny kurs</div>
           <div class="inlagg-titel">AI i min vardag — vad jag faktiskt märker</div>
@@ -847,7 +883,7 @@
         </div>
       </a>
       <a class="inlagg" href="#">
-        <div class="inlagg-nr">🚀 02</div>
+        <div class="inlagg-nr"><svg class="ikon-raket" aria-hidden="true"><use href="#raket-rost"/></svg> 02</div>
         <div>
           <div class="inlagg-tag">Vardag & Verkliga · I bana</div>
           <div class="inlagg-titel">Onsdagen som lärde mig något om tisdag</div>
@@ -856,7 +892,7 @@
         </div>
       </a>
       <a class="inlagg" href="#">
-        <div class="inlagg-nr">🚀 01</div>
+        <div class="inlagg-nr"><svg class="ikon-raket" aria-hidden="true"><use href="#raket-rost"/></svg> 01</div>
         <div>
           <div class="inlagg-tag">Huvud & Tanke · Startklarad</div>
           <div class="inlagg-titel">Varför är nyfikenhet starkare än plan?</div>
@@ -880,7 +916,7 @@
         <p class="fredags-body">Ett spår, en tanke, ett andetag. Veckans soundtrack — kurerat för exakt den känslan av att äntligen kunna andas ut.</p>
       </div>
       <div class="musik-kort">
-        <div class="musik-etikett">🚀 Veckans uppskjutning</div>
+        <div class="musik-etikett"><svg class="ikon-raket" aria-hidden="true"><use href="#raket-cream"/></svg> Veckans uppskjutning</div>
         <div class="musik-titel">Fredagsfredning</div>
         <div class="musik-artist">Kuraterad av Monika · Spotify</div>
         <a class="spotify-knapp" href="https://open.spotify.com/playlist/63TWmfJj2I1Gv1pWRKGiqe" target="_blank">
