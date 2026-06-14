@@ -753,6 +753,7 @@
     <li><a href="#fredagshalsning">Fredagshälsning</a></li>
     <li><a href="#kategorier">Ämnen</a></li>
     <li><a href="#om">Om mig</a></li>
+    <li><a href="#kommentarer">Landningsbana</a></li>
   </ul>
 </nav>
 
@@ -887,7 +888,7 @@
 <!-- MENINGSFULLHET -->
 <section class="mening">
   <div class="section-wrap">
-    <h2 class="mening-rubrik">Hundra raketer.<br>Ett syfte - känna sig <em>meningsfull</em>.</h2>
+    <h2 class="mening-rubrik">Hundra raketer.<br>Ett syfte: känna sig <em>meningsfull</em>.</h2>
     <div class="mening-strek"></div>
     <p class="mening-text">Inte perfekt. Inte produktiv varje dag. Inte alltid med svaren. Men meningsfull — i det lilla och det stora, i vardagen och i de stora frågorna.</p>
     <p class="mening-text">Nyfikenhet är bränslet. Mening är destinationen. Och raketens bana — det är livet självt.</p>
@@ -933,6 +934,58 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- KOMMENTARER -->
+<style>
+  .kommentarer {
+    background: var(--cream);
+    padding: 6rem 0;
+    border-top: 1px solid var(--soft);
+  }
+  .kommentarer .label { color: var(--rust); }
+  .kommentarer-rubrik {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.7rem, 3.5vw, 2.5rem);
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.15;
+    margin-bottom: 1.2rem;
+  }
+  .kommentarer-rubrik em { font-style: italic; color: var(--rust); }
+  .kommentarer-text {
+    font-size: 0.97rem;
+    line-height: 1.85;
+    color: var(--muted);
+    max-width: 46ch;
+    margin-bottom: 2.5rem;
+  }
+  .giscus { margin-top: 1rem; }
+</style>
+<section class="kommentarer" id="kommentarer">
+  <div class="section-wrap">
+    <p class="label">Landningsbana</p>
+    <h2 class="kommentarer-rubrik">Landa i en <em>tanke</em></h2>
+    <p class="kommentarer-text">Har något här satt igång en egen liten raket hos dig? Lämna en hälsning, en reflektion eller bara ett hej. Det behöver inte vara stort — det behöver bara vara äkta.</p>
+
+    <!-- giscus: kommentarer + reaktioner via GitHub Discussions -->
+    <div class="giscus"></div>
+    <script src="https://giscus.app/client.js"
+            data-repo="MonikaViola/monikamakeithappen"
+            data-repo-id="R_kgDOSxp0Aw"
+            data-category="Announcements"
+            data-category-id="DIC_kwDOSxp0A84C_FtB"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="light"
+            data-lang="sv"
+            crossorigin="anonymous"
+            async>
+    </script>
   </div>
 </section>
 
