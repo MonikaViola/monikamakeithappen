@@ -170,10 +170,13 @@
   }
 
   @keyframes driftUp {
-    0%   { transform: translateY(0) rotate(var(--rot)); opacity: 0; }
+    0%   { transform: translate(0, 0) rotate(var(--rot)); opacity: 0; }
     8%   { opacity: var(--max-opacity); }
+    25%  { transform: translate(var(--sway, 0px), calc(var(--travel) * 0.25)) rotate(var(--rot)); }
+    50%  { transform: translate(calc(var(--sway, 0px) * -1), calc(var(--travel) * 0.5)) rotate(var(--rot)); }
+    75%  { transform: translate(var(--sway, 0px), calc(var(--travel) * 0.75)) rotate(var(--rot)); }
     90%  { opacity: var(--max-opacity); }
-    100% { transform: translateY(var(--travel)) rotate(var(--rot)); opacity: 0; }
+    100% { transform: translate(0, var(--travel)) rotate(var(--rot)); opacity: 0; }
   }
 
   .header-kicker {
@@ -1066,6 +1069,7 @@
         el.style.left = (4 + Math.random() * 90) + '%';
         el.style.bottom = '-8%';
         el.style.setProperty('--rot', '0deg');
+        el.style.setProperty('--sway', ((6 + Math.random() * 16) * (Math.random() < 0.5 ? -1 : 1)).toFixed(1) + 'px');
         // Varierad väglängd + fart + slumpmässig startpunkt (negativ delay) = mer levande, osynkad rörelse
         const dur = dMin + Math.random() * dRange;
         const delay = -(Math.random() * dur);
@@ -1089,7 +1093,7 @@
   // Sidfot (mörk) — bara raketer, lite färre
   document.querySelectorAll('.footer-floaters').forEach((f) =>
     spawnFloaters(f, [
-      { type: 'raket', count: 4, sMin: 1.8, sRange: 1.2, oMin: 0.5, oRange: 0.22, dMin: 30, dRange: 48 },
+      { type: 'raket', count: 7, sMin: 1.8, sRange: 1.4, oMin: 0.5, oRange: 0.24, dMin: 30, dRange: 48 },
     ])
   );
 </script>
