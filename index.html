@@ -141,6 +141,12 @@
     filter: none;
   }
 
+  .floater.raket svg {
+    display: block;
+    width: 1em;
+    height: 1.625em;
+  }
+
   /* Mycket långsam drift uppåt */
   @keyframes drift {
     0%   { transform: translateY(0px) rotate(var(--r0)); opacity: 0; }
@@ -999,33 +1005,37 @@
 
 <script>
   const container = document.getElementById('floaters');
+
+  // Egen raket i Monikas palett — pekar rakt upp, med rödorange flamma
+  const ROCKET_SVG = '<svg viewBox="0 0 64 104" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M27 81 C27 93 32 102 32 102 C32 102 37 93 37 81 Z" fill="#d8541a"/><path d="M30 82 C30 91 32 97 32 97 C32 97 34 91 34 82 Z" fill="#f4a73c"/><path d="M21 64 L9 87 L21 79 Z" fill="#a83d0a"/><path d="M43 64 L55 87 L43 79 Z" fill="#a83d0a"/><path d="M27 73 L37 73 L35 82 L29 82 Z" fill="#8a6308"/><path d="M22 32 Q22 31 24 31 L40 31 Q42 31 42 32 L42 72 Q42 75 39 75 L25 75 Q22 75 22 72 Z" fill="#f7f2ea"/><path d="M32 5 C40 14 43 24 43 33 L21 33 C21 24 24 14 32 5 Z" fill="#a83d0a"/><rect x="22" y="59.5" width="20" height="3.5" fill="#b8860a"/><circle cx="32" cy="47" r="8.5" fill="#a83d0a"/><circle cx="32" cy="47" r="5.5" fill="#2a1c0d"/><circle cx="29.5" cy="44.5" r="1.8" fill="#f7f2ea" opacity="0.7"/></svg>';
+
   const objects = [
-    { emoji: '🚀', count: 5 },
+    { type: 'raket', count: 6 },
     { emoji: '🪐', count: 2 },
     { emoji: '🌍', count: 1 },
     { emoji: '🌙', count: 2 },
   ];
 
-  objects.forEach(({ emoji, count }) => {
+  objects.forEach(({ type, emoji, count }) => {
+    const isRaket = type === 'raket';
     for (let i = 0; i < count; i++) {
       const el = document.createElement('span');
-      el.className = 'floater';
-      el.textContent = emoji;
+      el.className = isRaket ? 'floater raket' : 'floater';
+      if (isRaket) { el.innerHTML = ROCKET_SVG; } else { el.textContent = emoji; }
 
-      const size = emoji === '🚀' ? (0.9 + Math.random() * 0.7) : (1.2 + Math.random() * 1.2);
+      const size = isRaket ? (2.2 + Math.random() * 1.6) : (1.2 + Math.random() * 1.2);
       el.style.fontSize = size + 'rem';
-      el.style.left = (5 + Math.random() * 88) + '%';
-      el.style.bottom = '-5%';
+      el.style.left = (4 + Math.random() * 90) + '%';
+      el.style.bottom = '-8%';
 
-      const duration = emoji === '🚀' ? (30 + Math.random() * 25) : (50 + Math.random() * 40);
-      const delay = Math.random() * 50;
+      const duration = isRaket ? (34 + Math.random() * 26) : (50 + Math.random() * 40);
+      const delay = Math.random() * 55;
 
-      const travel = -(110 + Math.random() * 15) + 'vh';
-      const maxOpacity = emoji === '🚀' ? (0.22 + Math.random() * 0.18) : (0.12 + Math.random() * 0.12);
+      const travel = -(115 + Math.random() * 15) + 'vh';
+      const maxOpacity = isRaket ? (0.5 + Math.random() * 0.25) : (0.12 + Math.random() * 0.12);
 
-      // Raketer roteras -45deg så de pekar rakt upp, planeter har ingen rotation
-      const rot = emoji === '🚀' ? '-45deg' : '0deg';
-      el.style.setProperty('--rot', rot);
+      // Allt pekar rakt upp
+      el.style.setProperty('--rot', '0deg');
       el.style.setProperty('--travel', travel);
       el.style.setProperty('--max-opacity', maxOpacity);
       el.style.animation = `driftUp ${duration}s linear ${delay}s infinite`;
