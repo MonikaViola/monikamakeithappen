@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Statisten — Monika Make It Happen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --ink: #1a1108;
+    --cream: #f7f2ea;
+    --warm-white: #fdfaf5;
+    --rust: #a83d0a;
+    --gold: #b8860a;
+    --muted: #4a4035;
+    --soft: #ede6d8;
+    --mid: #3a3028;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--warm-white);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 1rem;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(253, 250, 245, 0.96);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--soft);
+    padding: 0 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 58px;
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--rust); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--ink); }
+
+  /* ── HERO ── */
+  header {
+    background: #2a1c0d;
+    padding: 7rem 2.5rem 6rem;
+    position: relative;
+    overflow: hidden;
+    min-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* Djup bakgrundsstruktur */
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 75% 40%, rgba(70,40,12,0.4) 0%, transparent 70%),
+      linear-gradient(170deg, #3a2410 0%, #1a0e06 60%, #110a04 100%);
+    pointer-events: none;
+  }
+
+  /* Diagonal ljusrand */
+  header::after {
+    content: '';
+    position: absolute;
+    top: -20%; right: -8%;
+    width: 42%;
+    height: 140%;
+    background: linear-gradient(135deg, rgba(60,40,18,0.6), rgba(40,25,10,0.8));
+    transform: skewX(-7deg);
+    border-left: 1px solid rgba(196,154,56,0.1);
+    pointer-events: none;
+  }
+
+  .header-content {
+    position: relative;
+    z-index: 2;
+    max-width: 780px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  /* Flygande objekt i hero */
+  .floaters {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .floater {
+    position: absolute;
+    font-size: 1.4rem;
+    opacity: 0;
+    will-change: transform;
+  }
+
+  .floater.raket {
+    transform-origin: center center;
+    filter: none;
+  }
+
+  .floater.raket svg {
+    display: block;
+    width: 1em;
+    height: 1.625em;
+  }
+
+  .ikon-raket {
+    display: inline-block;
+    width: 0.72em;
+    height: 1.17em;
+    vertical-align: -0.18em;
+  }
+
+  /* Mycket långsam drift uppåt */
+  @keyframes drift {
+    0%   { transform: translateY(0px) rotate(var(--r0)); opacity: 0; }
+    8%   { opacity: var(--max-opacity); }
+    90%  { opacity: var(--max-opacity); }
+    100% { transform: translateY(var(--travel)) rotate(var(--r1)); opacity: 0; }
+  }
+
+  @keyframes drift {
+    0%   { opacity: 0; }
+    8%   { opacity: var(--max-opacity); }
+    90%  { opacity: var(--max-opacity); }
+    100% { opacity: 0; }
+  }
+
+  @keyframes driftUp {
+    0%   { transform: translate(0, 0) rotate(var(--rot)); opacity: 0; }
+    8%   { opacity: var(--max-opacity); }
+    25%  { transform: translate(var(--sway, 0px), calc(var(--travel) * 0.25)) rotate(var(--rot)); }
+    50%  { transform: translate(calc(var(--sway, 0px) * -1), calc(var(--travel) * 0.5)) rotate(var(--rot)); }
+    75%  { transform: translate(var(--sway, 0px), calc(var(--travel) * 0.75)) rotate(var(--rot)); }
+    90%  { opacity: var(--max-opacity); }
+    100% { transform: translate(0, var(--travel)) rotate(var(--rot)); opacity: 0; }
+  }
+
+  .header-kicker {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #e8c060;
+    margin-bottom: 2.5rem;
+  }
+
+  .header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 9vw, 7.5rem);
+    font-weight: 900;
+    line-height: 0.92;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.15em;
+  }
+
+  .header-title .make {
+    display: block;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 0.5em;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 0.08em;
+    line-height: 2.2;
+  }
+
+  .header-byline {
+    margin-top: 2.5rem;
+    max-width: 420px;
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.88);
+    font-style: italic;
+    border-left: 2px solid #c04a12;
+    padding-left: 1.2rem;
+  }
+
+  .header-ig {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 2.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    transition: color 0.4s;
+  }
+
+  .header-ig:hover { color: #e8c060; }
+
+  /* ── DELAD STRUKTUR ── */
+  .section-wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+  }
+
+  .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.63rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .label::after {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--rust);
+    opacity: 0.35;
+  }
+
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--soft);
+    margin: 0;
+  }
+
+  /* ── INTRO ── */
+  .intro { padding: 6rem 0; }
+
+  .intro-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.7rem, 3.5vw, 2.5rem);
+    font-weight: 400;
+    line-height: 1.45;
+    letter-spacing: -0.01em;
+    margin-bottom: 2rem;
+  }
+
+  .intro-heading em { font-style: italic; color: var(--rust); }
+  .intro-heading strong { font-weight: 700; }
+
+  .intro-body {
+    max-width: 540px;
+    color: var(--mid);
+    font-size: 1rem;
+    line-height: 1.9;
+  }
+
+  /* ── RAKETBAND ── */
+  .raket-band {
+    background: var(--cream);
+    padding: 4.5rem 0;
+    border-top: 1px solid var(--soft);
+    border-bottom: 1px solid var(--soft);
+  }
+
+  .raket-inner {
+    display: flex;
+    align-items: baseline;
+    gap: 2rem;
+  }
+
+  .raket-siffra {
+    font-family: 'Playfair Display', serif;
+    font-size: 7rem;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--soft);
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .raket-siffra-ikon {
+    position: absolute;
+    top: 4px;
+    right: -30px;
+    width: 1.35rem;
+    height: 2.2rem;
+  }
+
+  .raket-text h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-style: italic;
+    line-height: 1.35;
+    margin-bottom: 0.6rem;
+  }
+
+  .raket-text p {
+    font-size: 0.95rem;
+    color: var(--mid);
+    max-width: 440px;
+    line-height: 1.8;
+  }
+
+  /* ── SENASTE TANKAR ── */
+  .tankar { padding: 6rem 0; }
+
+  .tankar-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .tankar-rubrik {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 900;
+    line-height: 1.1;
+  }
+
+  .se-alla {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--rust);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px;
+    transition: opacity 0.3s;
+  }
+
+  .se-alla:hover { opacity: 0.6; }
+
+  .inlagg-lista { display: grid; }
+
+  .inlagg {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 1.5rem;
+    padding: 1.8rem 0;
+    border-bottom: 1px solid var(--soft);
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .inlagg:hover .inlagg-titel { color: var(--rust); }
+
+  .inlagg-nr {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 900;
+    color: var(--rust);
+    line-height: 1.3;
+    padding-top: 0.2rem;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .inlagg-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 0.3rem;
+  }
+
+  .inlagg-titel {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 0.3rem;
+    transition: color 0.3s;
+  }
+
+  .header-updated {
+    margin-top: 1.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.35);
+    text-transform: uppercase;
+  }
+
+  .inlagg-datum {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-top: 0.3rem;
+  }
+
+  /* ── FREDAGSHÄLSNING ── */
+  .fredags {
+    background: #1e1208;
+    padding: 6.5rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .fredags .section-wrap {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Subtilt djupljus i hörnet */
+  .fredags::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(196,154,56,0.07) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .fredags .label { color: var(--gold); }
+  .fredags .label::after { background: var(--gold); }
+
+  .fredags-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .fredags-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+
+  .fredags-heading em { font-style: italic; color: #e8c060; font-weight: 400; }
+
+  .fredags-body {
+    font-size: 0.97rem;
+    line-height: 1.85;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 1.5rem;
+  }
+
+  .fredags-citat {
+    border-left: 2px solid #c04a12;
+    padding: 0.8rem 1.2rem;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: #ffffff;
+    line-height: 1.6;
+    margin: 2rem 0;
+  }
+
+  .musik-kort {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.18);
+    padding: 2rem 2rem 2.2rem;
+  }
+
+  .musik-etikett {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #e8c060;
+    margin-bottom: 1.2rem;
+  }
+
+  .musik-titel {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.25rem;
+  }
+
+  .musik-artist {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 2rem;
+  }
+
+  .spotify-knapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.3rem;
+    background: #1DB954;
+    color: #fff;
+    text-decoration: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: opacity 0.3s;
+  }
+
+  .spotify-knapp:hover { opacity: 0.82; }
+
+  /* ── MENINGSFULLHET ── */
+  .mening {
+    padding: 7rem 0;
+    text-align: center;
+  }
+
+  .mening-rubrik {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.7rem, 4vw, 2.8rem);
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+  }
+
+  .mening-rubrik em { font-style: italic; color: var(--rust); }
+
+  .mening-strek {
+    width: 32px;
+    height: 2px;
+    background: var(--gold);
+    margin: 2rem auto;
+    opacity: 0.5;
+  }
+
+  .mening-text {
+    font-size: 1rem;
+    color: var(--mid);
+    max-width: 500px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.9;
+  }
+
+  .mening-citat {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    max-width: 460px;
+    margin: 0 auto;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+
+  /* ── KATEGORIER ── */
+  .kategorier {
+    background: var(--cream);
+    padding: 6rem 0;
+    border-top: 1px solid var(--soft);
+    border-bottom: 1px solid var(--soft);
+  }
+
+  .kat-rubrik {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 3rem;
+  }
+
+  .kat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1px;
+    background: var(--soft);
+  }
+
+  .kat-kort {
+    background: var(--cream);
+    padding: 1.8rem;
+    transition: background 0.3s;
+  }
+
+  .kat-kort:hover { background: var(--warm-white); }
+
+  .kat-roman {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--rust);
+    margin-bottom: 0.8rem;
+    display: block;
+    opacity: 0.7;
+  }
+
+  .kat-namn {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+
+  .kat-desc {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── OM MIG ── */
+  .om {
+    background: var(--cream);
+    padding: 6rem 0;
+    border-top: 1px solid var(--soft);
+  }
+
+  .om-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .om-foto-wrap {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+  }
+
+  .om-foto-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+
+  /* Mjuk övertoning från höger och nederkant */
+  .om-foto-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to right, transparent 55%, var(--cream) 100%),
+      linear-gradient(to top, var(--cream) 0%, transparent 25%);
+    pointer-events: none;
+  }
+
+  .om-citat {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.45;
+    margin-bottom: 1.5rem;
+  }
+
+  .om-text {
+    font-size: 0.97rem;
+    color: var(--mid);
+    line-height: 1.85;
+    margin-bottom: 1.5rem;
+  }
+
+  .om-taggar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 2rem;
+  }
+
+  .om-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.63rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.8rem;
+    border: 1px solid rgba(44,34,24,0.18);
+    color: var(--ink);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #1e1208;
+    padding: 4rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    min-height: 46vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  footer > *:not(.floaters) {
+    position: relative;
+    z-index: 2;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    font-style: italic;
+    color: var(--cream);
+    margin-bottom: 0.6rem;
+  }
+
+  .footer-logo span { color: var(--gold); }
+
+  .footer-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-ig {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-ig:hover { color: #e8c060; }
+
+  .footer-copy {
+    margin-top: 2.5rem;
+    font-size: 0.68rem;
+    color: rgba(255,255,255,0.4);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── RESPONSIV ── */
+  @media (max-width: 680px) {
+    .fredags-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .om-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .om-foto { aspect-ratio: 4/3; }
+    .raket-inner { flex-direction: column; gap: 0.5rem; }
+    .raket-siffra { font-size: 4rem; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- RAKET-IKONER (återanvändbar sprite) -->
+<svg width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false">
+  <symbol id="raket-cream" viewBox="0 0 64 104">
+    <path d="M27 81 C27 93 32 102 32 102 C32 102 37 93 37 81 Z" fill="#d8541a"/>
+    <path d="M30 82 C30 91 32 97 32 97 C32 97 34 91 34 82 Z" fill="#f4a73c"/>
+    <path d="M21 64 L9 87 L21 79 Z" fill="#a83d0a"/>
+    <path d="M43 64 L55 87 L43 79 Z" fill="#a83d0a"/>
+    <path d="M27 73 L37 73 L35 82 L29 82 Z" fill="#8a6308"/>
+    <path d="M22 32 Q22 31 24 31 L40 31 Q42 31 42 32 L42 72 Q42 75 39 75 L25 75 Q22 75 22 72 Z" fill="#f7f2ea"/>
+    <path d="M32 5 C40 14 43 24 43 33 L21 33 C21 24 24 14 32 5 Z" fill="#a83d0a"/>
+    <rect x="22" y="59.5" width="20" height="3.5" fill="#b8860a"/>
+    <circle cx="32" cy="47" r="8.5" fill="#a83d0a"/>
+    <circle cx="32" cy="47" r="5.5" fill="#2a1c0d"/>
+    <circle cx="29.5" cy="44.5" r="1.8" fill="#f7f2ea" opacity="0.7"/>
+  </symbol>
+  <symbol id="raket-rost" viewBox="0 0 64 104">
+    <path d="M27 81 C27 93 32 102 32 102 C32 102 37 93 37 81 Z" fill="#d8541a"/>
+    <path d="M30 82 C30 91 32 97 32 97 C32 97 34 91 34 82 Z" fill="#f4a73c"/>
+    <path d="M21 64 L9 87 L21 79 Z" fill="#8f3208"/>
+    <path d="M43 64 L55 87 L43 79 Z" fill="#8f3208"/>
+    <path d="M27 73 L37 73 L35 82 L29 82 Z" fill="#6e4e06"/>
+    <path d="M22 32 Q22 31 24 31 L40 31 Q42 31 42 32 L42 72 Q42 75 39 75 L25 75 Q22 75 22 72 Z" fill="#a83d0a"/>
+    <path d="M32 5 C40 14 43 24 43 33 L21 33 C21 24 24 14 32 5 Z" fill="#8f3208"/>
+    <rect x="22" y="59.5" width="20" height="3.5" fill="#b8860a"/>
+    <circle cx="32" cy="47" r="8.5" fill="#8f3208"/>
+    <circle cx="32" cy="47" r="5.5" fill="#f7f2ea"/>
+  </symbol>
+</svg>
+
+<nav>
+  <a class="nav-logo" href="index.html"><span>M</span>onika Make It Happen</a>
+  <ul class="nav-links">
+    <li><a href="index.html#tankar">Tankar</a></li>
+    <li><a href="index.html#fredagshalsning">Fredagshälsning</a></li>
+    <li><a href="index.html#kategorier">Ämnen</a></li>
+    <li><a href="index.html#om">Om mig</a></li>
+    <li><a href="#kommentarer">Landningsbana</a></li>
+  </ul>
+</nav>
+
+<!-- POST: Statisten -->
+<style>
+  .post-hero { min-height: auto; padding: 6rem 2.5rem 4.5rem; }
+  .post-kicker {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.63rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #e8c060;
+    margin-bottom: 2rem;
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  .post-kicker::after { content: ''; width: 32px; height: 1px; background: #e8c060; opacity: 0.4; }
+  .post-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.6rem, 8vw, 5rem);
+    font-weight: 900;
+    line-height: 0.98;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.4rem;
+  }
+  .post-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+  }
+  .artikel { background: var(--warm-white); padding: 5rem 0 4.5rem; }
+  .artikel .section-wrap { max-width: 660px; }
+  .artikel p {
+    font-size: 1.12rem;
+    line-height: 1.95;
+    color: var(--mid);
+    margin-bottom: 1.7rem;
+  }
+  .artikel p.slut {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.25rem;
+    color: var(--rust);
+    margin-top: 2.6rem;
+  }
+  /* Veckans soundtrack — mörk sektion som speglar Fredagshälsningen */
+  .veckans { background: #2a1c0d; padding: 4.5rem 2.5rem 5rem; position: relative; overflow: hidden; }
+  .veckans::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 75% 30%, rgba(70,40,12,0.4) 0%, transparent 70%),
+      linear-gradient(170deg, #3a2410 0%, #1a0e06 70%, #110a04 100%);
+    pointer-events: none;
+  }
+  .veckans .section-wrap { position: relative; z-index: 2; }
+  .veckans .label { color: var(--gold); }
+  .veckans .label::after { background: var(--gold); }
+  .veckans-intro {
+    color: rgba(247,242,234,0.78);
+    font-size: 1rem;
+    line-height: 1.85;
+    max-width: 46ch;
+    margin-bottom: 2.6rem;
+  }
+  .veckans .spotify-embed {
+    margin-top: 1.6rem;
+    border: 1px solid rgba(255,255,255,0.18);
+  }
+  .veckans .spotify-embed iframe { display: block; border: 0; width: 100%; }
+</style>
+<!-- POST HERO -->
+<header class="post-hero">
+  <div class="floaters" id="floaters"></div>
+  <div class="header-content">
+    <p class="post-kicker">Huvud &amp; Tanke · Under reparation</p>
+    <h1 class="post-title">Statisten</h1>
+    <p class="post-meta">Fredagshälsning · 19 juni 2026</p>
+    <p class="header-updated" id="header-updated" style="margin-top:1.2rem;">Senast uppdaterad: 19 juni 2026</p>
+  </div>
+</header>
+
+<!-- ARTIKEL -->
+<article class="artikel">
+  <div class="section-wrap">
+    <p>Det finns dagar då jag känner det innan jag förstår det — ett eko. Inte ett ljud utifrån, utan tomrummet inuti som skräller. En raket som lyfter behöver bränsle, och en raket som ekar är en raket som börjat gå tom.</p>
+
+    <p>Bullret kommer utifrån. Det lägger sig över sommaren som en regi jag aldrig skrivit under på — tider att passa, måltider att samlas kring, en rytm som redan var satt när jag kom. Var sak på sin plats, varje dag på sitt spår. Och tomrummet inuti fångar upp bullret och låter det studsa tills det blir olidligt. Jag blir trött. Jag blir, ärligt talat, ganska ocharmig.</p>
+
+    <p>Det värsta är inte bullret. Det värsta är vem jag blir i det. En statist. Någon som står med i sin egen sommar, i bakgrunden, med en replik här och där men aldrig huvudrollen. Jag, som innerst inne är skådespelerska — den sorten som kan method acting så det svider innanför ögonlocket — låter mig krympas till en figur i någon annans pjäs.</p>
+
+    <p>Men ekot lägger sig emellanåt. En tidig morgon innan huset vaknar. Ett dopp. En tanke som får vara min hela vägen ut. Och i de stunderna minns jag vad bränsle faktiskt är — inte att bullret tystnar, för det gör det inte. Utan att fylla tomrummet med något eget, så fullt att bullret inte längre har plats att studsa runt. Nyfikenheten. Det jag väljer. Den här texten.</p>
+
+    <p>Jag har inte landat. Den här raketen är fortfarande under reparation, och jag tänker inte låtsas annat. Men jag har börjat tanka. Och en skådespelerska som tankar är åtminstone inte längre statist.</p>
+
+    <p class="slut">Glad fredag — håll era egna raketer i bana.</p>
+  </div>
+</article>
+
+<!-- VECKANS SOUNDTRACK (inbäddad spellista, precis under sista raden) -->
+<section class="veckans">
+  <div class="floaters fredags-floaters"></div>
+  <div class="section-wrap">
+    <p class="label">Raket #100 — Veckans soundtrack</p>
+    <p class="veckans-intro">Ett spår att börja tanka till. Mjukt i öppningen, sedan glider det ut i midsommarljuset — precis som texten.</p>
+    <div class="musik-kort">
+      <div class="musik-etikett"><svg class="ikon-raket" aria-hidden="true"><use href="#raket-cream"/></svg> Veckans uppskjutning</div>
+      <div class="musik-titel">Summer Solstice Mix</div>
+      <div class="musik-artist">Kuraterad av Monika · Spotify</div>
+      <a class="spotify-knapp" href="https://open.spotify.com/playlist/1GLNrOSeU4nsPWswsKKfEB" target="_blank" rel="noopener">
+        ▶ Lyssna på Spotify
+      </a>
+      <div class="spotify-embed">
+        <iframe src="https://open.spotify.com/embed/playlist/1GLNrOSeU4nsPWswsKKfEB?utm_source=generator&theme=0"
+                height="352" frameborder="0" allowfullscreen=""
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy" title="Summer Solstice Mix på Spotify"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KOMMENTARER -->
+<style>
+  .kommentarer {
+    background: var(--cream);
+    padding: 6rem 0;
+    border-top: 1px solid var(--soft);
+  }
+  .kommentarer .label { color: var(--rust); }
+  .kommentarer-rubrik {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.7rem, 3.5vw, 2.5rem);
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.15;
+    margin-bottom: 1.2rem;
+  }
+  .kommentarer-rubrik em { font-style: italic; color: var(--rust); }
+  .kommentarer-text {
+    font-size: 0.97rem;
+    line-height: 1.85;
+    color: var(--muted);
+    max-width: 46ch;
+    margin-bottom: 2.5rem;
+  }
+  .giscus { margin-top: 1rem; }
+</style>
+<section class="kommentarer" id="kommentarer">
+  <div class="section-wrap">
+    <p class="label">Landningsbana</p>
+    <h2 class="kommentarer-rubrik">Landa i en <em>tanke</em></h2>
+    <p class="kommentarer-text">Har något här satt igång en egen liten raket hos dig? Lämna en hälsning, en reflektion eller bara ett hej. Det behöver inte vara stort — det behöver bara vara äkta.</p>
+
+    <!-- giscus: kommentarer + reaktioner via GitHub Discussions -->
+    <div class="giscus"></div>
+    <script src="https://giscus.app/client.js"
+            data-repo="MonikaViola/monikamakeithappen"
+            data-repo-id="R_kgDOSxp0Aw"
+            data-category="Announcements"
+            data-category-id="DIC_kwDOSxp0A84C_FtB"
+            data-mapping="pathname"
+            data-strict="0"
+            data-reactions-enabled="1"
+            data-emit-metadata="0"
+            data-input-position="top"
+            data-theme="light"
+            data-lang="en"
+            crossorigin="anonymous"
+            async>
+    </script>
+  </div>
+</section>
+
+
+<footer>
+  <div class="floaters footer-floaters"></div>
+  <div class="footer-logo"><span>M</span>onika Make It Happen</div>
+  <div class="footer-sub">100 raketer · @monikamakeithappen · Stockholm</div>
+  <a class="footer-ig" href="https://instagram.com/monikamakeithappen" target="_blank">instagram.com/monikamakeithappen</a>
+  <div class="footer-copy">© 2026 Monika Make It Happen — alla raketer förbehållna</div>
+</footer>
+
+
+<script>
+  const RKT = '<svg><use href="#raket-cream"/></svg>';
+
+  function spawnFloaters(container, conf) {
+    conf.forEach(({ type, emoji, count, sMin, sRange, oMin, oRange, dMin, dRange }) => {
+      const isRaket = type === 'raket';
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement('span');
+        el.className = isRaket ? 'floater raket' : 'floater';
+        if (isRaket) { el.innerHTML = RKT; } else { el.textContent = emoji; }
+        el.style.fontSize = (sMin + Math.random() * sRange) + 'rem';
+        el.style.left = (4 + Math.random() * 90) + '%';
+        el.style.bottom = '-8%';
+        el.style.setProperty('--rot', '0deg');
+        el.style.setProperty('--sway', ((6 + Math.random() * 16) * (Math.random() < 0.5 ? -1 : 1)).toFixed(1) + 'px');
+        // Varierad väglängd + fart + slumpmässig startpunkt (negativ delay) = mer levande, osynkad rörelse
+        const dur = dMin + Math.random() * dRange;
+        const delay = -(Math.random() * dur);
+        el.style.setProperty('--travel', -(110 + Math.random() * 40) + 'vh');
+        el.style.setProperty('--max-opacity', oMin + Math.random() * oRange);
+        el.style.animation = `driftUp ${dur.toFixed(1)}s linear ${delay.toFixed(1)}s infinite`;
+        container.appendChild(el);
+      }
+    });
+  }
+
+  // Hero (mörk) — raketer + planeter
+  const hero = document.getElementById('floaters');
+  if (hero) spawnFloaters(hero, [
+    { type: 'raket', count: 6, sMin: 2.2, sRange: 1.6, oMin: 0.5, oRange: 0.25, dMin: 26, dRange: 54 },
+    { emoji: '🪐', count: 2, sMin: 1.2, sRange: 1.2, oMin: 0.12, oRange: 0.12, dMin: 55, dRange: 65 },
+    { emoji: '🌍', count: 1, sMin: 1.2, sRange: 1.2, oMin: 0.12, oRange: 0.12, dMin: 55, dRange: 65 },
+    { emoji: '🌙', count: 2, sMin: 1.2, sRange: 1.2, oMin: 0.12, oRange: 0.12, dMin: 55, dRange: 65 },
+  ]);
+
+  // Sidfot (mörk) — bara raketer, lite färre
+  document.querySelectorAll('.footer-floaters').forEach((f) =>
+    spawnFloaters(f, [
+      { type: 'raket', count: 7, sMin: 1.8, sRange: 1.4, oMin: 0.5, oRange: 0.24, dMin: 30, dRange: 48 },
+    ])
+  );
+
+  // Mittsektion Fredagshälsning (mörk) — raketer + planeter, nedtonat bakom texten
+  document.querySelectorAll('.fredags-floaters').forEach((f) =>
+    spawnFloaters(f, [
+      { type: 'raket', count: 5, sMin: 1.8, sRange: 1.3, oMin: 0.4, oRange: 0.18, dMin: 30, dRange: 50 },
+      { emoji: '🪐', count: 1, sMin: 1.1, sRange: 1.1, oMin: 0.1, oRange: 0.12, dMin: 55, dRange: 65 },
+      { emoji: '🌍', count: 1, sMin: 1.1, sRange: 1.1, oMin: 0.1, oRange: 0.12, dMin: 55, dRange: 65 },
+      { emoji: '🌙', count: 1, sMin: 1.1, sRange: 1.1, oMin: 0.1, oRange: 0.12, dMin: 55, dRange: 65 },
+    ])
+  );
+</script>
+<!-- Senast uppdaterad: sätts automatiskt från filens senast ändrade datum -->
+<script>
+  (function () {
+    var el = document.getElementById('header-updated');
+    if (!el) return;
+    var d = new Date(document.lastModified);
+    // Fall tillbaka på befintlig text om datumet saknas eller är ogiltigt
+    if (isNaN(d.getTime()) || d.getFullYear() < 2000) return;
+    var datum = new Intl.DateTimeFormat('sv-SE', {
+      day: 'numeric', month: 'long', year: 'numeric'
+    }).format(d);
+    el.textContent = 'Senast uppdaterad: ' + datum;
+  })();
+</script>
+</body>
+</html>
