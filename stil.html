@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stilmanual — Monika Make It Happen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:#1a1108; --cream:#f7f2ea; --warm-white:#fdfaf5; --rust:#a83d0a;
+    --gold:#b8860a; --gold-ljus:#e8c060; --muted:#4a4035; --soft:#ede6d8;
+    --mid:#3a3028; --brun:#2a1c0d;
+  }
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--warm-white); color:var(--ink); font-family:'DM Sans',sans-serif; font-weight:300; line-height:1.7; overflow-x:hidden; }
+
+  nav { position:sticky; top:0; z-index:100; background:rgba(253,250,245,.96); backdrop-filter:blur(8px); border-bottom:1px solid var(--soft); padding:0 2.5rem; display:flex; align-items:center; justify-content:space-between; height:58px; }
+  .nav-logo { font-family:'Playfair Display',serif; font-size:1rem; font-weight:700; font-style:italic; color:var(--ink); text-decoration:none; }
+  .nav-logo span { color:var(--rust); }
+  .nav-back { font-family:'DM Mono',monospace; font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); text-decoration:none; }
+  .nav-back:hover { color:var(--ink); }
+
+  header { background:var(--brun); padding:6rem 2.5rem 5rem; position:relative; overflow:hidden; }
+  header::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 60% at 78% 32%, rgba(70,40,12,.4) 0%, transparent 70%), linear-gradient(170deg,#3a2410 0%,#1a0e06 65%,#110a04 100%); }
+  .head-wrap { position:relative; z-index:2; max-width:820px; margin:0 auto; display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap; }
+  .head-wrap .rkt { width:62px; height:101px; flex:none; }
+  .kicker { font-family:'DM Mono',monospace; font-size:.63rem; letter-spacing:.28em; text-transform:uppercase; color:var(--gold-ljus); margin-bottom:1.2rem; }
+  h1 { font-family:'Playfair Display',serif; font-size:clamp(2.4rem,6vw,4rem); font-weight:900; line-height:.98; color:#fff; letter-spacing:-.02em; }
+  h1 em { font-style:italic; font-weight:400; color:rgba(255,255,255,.8); }
+  .head-sub { color:rgba(247,242,234,.72); margin-top:1.2rem; max-width:48ch; }
+
+  .wrap { max-width:820px; margin:0 auto; padding:0 2.5rem; }
+  section.block { padding:4.5rem 0; border-top:1px solid var(--soft); }
+  .label { font-family:'DM Mono',monospace; font-size:.63rem; letter-spacing:.28em; text-transform:uppercase; color:var(--rust); margin-bottom:1.4rem; display:flex; align-items:center; gap:.7rem; }
+  .label::after { content:''; width:32px; height:1px; background:var(--rust); opacity:.35; }
+  h2 { font-family:'Playfair Display',serif; font-size:clamp(1.6rem,3.5vw,2.3rem); font-weight:400; color:var(--ink); line-height:1.2; margin-bottom:1rem; }
+  h2 em { font-style:italic; color:var(--rust); }
+  .lead { color:var(--muted); max-width:60ch; margin-bottom:2rem; font-size:1.02rem; }
+  h3 { font-family:'DM Mono',monospace; font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--rust); margin:2.2rem 0 1rem; }
+
+  /* TOC */
+  .toc { background:var(--cream); border:1px solid var(--soft); padding:2rem 2.2rem; }
+  .toc ol { list-style:none; counter-reset:t; columns:2; column-gap:2.5rem; }
+  .toc li { counter-increment:t; margin-bottom:.7rem; break-inside:avoid; }
+  .toc a { font-family:'DM Mono',monospace; font-size:.82rem; color:var(--mid); text-decoration:none; display:flex; gap:.7rem; }
+  .toc a::before { content:counter(t,decimal-leading-zero); color:var(--rust); }
+  .toc a:hover { color:var(--ink); }
+
+  /* Swatches */
+  .swatch-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:.8rem; }
+  .swatch { display:flex; gap:.9rem; align-items:center; text-align:left; padding:.6rem; background:transparent; border:1px solid var(--soft); cursor:pointer; font:inherit; transition:border-color .2s; position:relative; }
+  .swatch:hover { border-color:var(--rust); }
+  .swatch-chip { width:46px; height:46px; flex:none; background:var(--c); border:1px solid rgba(0,0,0,.08); }
+  .swatch-meta { display:flex; flex-direction:column; line-height:1.35; }
+  .swatch-meta b { font-family:'DM Mono',monospace; font-size:.78rem; color:var(--ink); font-weight:400; }
+  .swatch-meta code { font-family:'DM Mono',monospace; font-size:.64rem; color:var(--rust); }
+  .swatch-meta i { font-style:normal; font-size:.7rem; color:var(--muted); }
+  .swatch.copied::after { content:'kopierad ✦'; position:absolute; right:.6rem; top:.5rem; font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.1em; color:var(--rust); }
+
+  /* Sektionstabell */
+  .tbl { width:100%; border-collapse:collapse; font-size:.82rem; }
+  .tbl th, .tbl td { text-align:left; padding:.7rem .6rem; border-bottom:1px solid var(--soft); vertical-align:middle; }
+  .tbl th { font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.14em; text-transform:uppercase; color:var(--rust); }
+  .tbl td b { font-weight:500; }
+  .mini { display:inline-block; width:13px; height:13px; vertical-align:-2px; margin-right:.4rem; border:1px solid rgba(0,0,0,.1); }
+
+  /* Typsnitt */
+  .type-card { border:1px solid var(--soft); padding:1.8rem; margin-bottom:1.2rem; }
+  .type-card .name { font-family:'DM Mono',monospace; font-size:.65rem; letter-spacing:.18em; text-transform:uppercase; color:var(--rust); margin-bottom:.8rem; }
+  .spec-playfair { font-family:'Playfair Display',serif; font-size:2.4rem; font-weight:900; color:var(--ink); line-height:1; }
+  .spec-playfair em { font-style:italic; font-weight:400; color:var(--rust); }
+  .spec-sans { font-family:'DM Sans',sans-serif; font-weight:300; font-size:1.15rem; color:var(--mid); }
+  .spec-mono { font-family:'DM Mono',monospace; font-size:1rem; letter-spacing:.1em; color:var(--mid); }
+  .type-card .use { font-size:.78rem; color:var(--muted); margin-top:.7rem; }
+
+  /* Status / termer */
+  .pill-row { display:flex; flex-wrap:wrap; gap:.7rem; margin-bottom:1.4rem; }
+  .pill { font-family:'DM Mono',monospace; font-size:.62rem; letter-spacing:.16em; text-transform:uppercase; color:var(--rust); border:1px solid var(--rust); padding:.45rem .8rem; }
+  .term { display:flex; gap:.8rem; padding:.6rem 0; border-bottom:1px solid var(--soft); font-size:.9rem; }
+  .term b { font-family:'DM Mono',monospace; font-weight:400; color:var(--rust); min-width:9rem; font-size:.78rem; letter-spacing:.06em; }
+  .term span { color:var(--muted); }
+
+  /* Komponentdemo (mörk) */
+  .demo-dark { background:var(--brun); padding:2.4rem; display:grid; grid-template-columns:1fr 1fr; gap:2rem; align-items:start; }
+  .musik-kort { background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.18); padding:1.8rem; }
+  .musik-etikett { font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.25em; text-transform:uppercase; color:var(--gold-ljus); margin-bottom:1rem; }
+  .musik-titel { font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:700; color:#fff; }
+  .musik-artist { font-family:'DM Mono',monospace; font-size:.7rem; color:rgba(255,255,255,.7); margin:.2rem 0 1.4rem; }
+  .spotify-knapp { display:inline-flex; align-items:center; gap:.5rem; padding:.75rem 1.3rem; background:#1DB954; color:#fff; text-decoration:none; font-family:'DM Mono',monospace; font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; }
+  .demo-note { font-family:'DM Mono',monospace; font-size:.62rem; color:rgba(255,255,255,.55); letter-spacing:.1em; }
+  .label-dark { color:var(--gold-ljus); } .label-dark::after { background:var(--gold-ljus); }
+
+  /* Rymd */
+  .rymd-panel { background:linear-gradient(170deg,#3a2410,#1a0e06 70%,#110a04); padding:2.5rem 1.5rem; }
+  .rymd-panel.kall { background:linear-gradient(170deg,#15324a,#0a1622 70%,#060d15); }
+  .rymd-row { display:flex; flex-wrap:wrap; gap:1rem; align-items:flex-end; justify-content:center; }
+  .rymd-item { text-align:center; }
+  .rymd-item svg { width:108px; height:86px; display:block; }
+  .rymd-item .rkt { width:54px; height:88px; }
+  .rymd-item figcaption { font-family:'DM Mono',monospace; font-size:.58rem; letter-spacing:.12em; color:rgba(255,255,255,.6); margin-top:.5rem; }
+  .rymd-cap { font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; margin:1.6rem 0 .9rem; }
+  .cap-varm { color:var(--gold-ljus); } .cap-kall { color:#79c2e8; }
+
+  /* Skiftning */
+  .shift-bar { height:54px; background:linear-gradient(90deg,#a83d0a 0%,#8a5430 35%,#3a6f86 65%,#135e9e 100%); border:1px solid var(--soft); }
+  .shift-ends { display:flex; justify-content:space-between; font-family:'DM Mono',monospace; font-size:.66rem; color:var(--muted); margin-top:.6rem; }
+
+  footer { background:var(--brun); color:var(--cream); text-align:center; padding:3.5rem 2.5rem; }
+  .footer-logo { font-family:'Playfair Display',serif; font-style:italic; font-weight:700; }
+  .footer-logo span { color:var(--rust); }
+  .footer-sub { font-family:'DM Mono',monospace; font-size:.62rem; letter-spacing:.12em; color:rgba(255,255,255,.5); margin-top:.5rem; }
+
+  @media (max-width:680px) {
+    .swatch-grid { grid-template-columns:1fr; }
+    .toc ol { columns:1; }
+    .demo-dark { grid-template-columns:1fr; }
+    .tbl { font-size:.74rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html"><span>M</span>onika Make It Happen</a>
+  <a class="nav-back" href="index.html">← Tillbaka till bloggen</a>
+</nav>
+
+<header>
+  <div class="head-wrap">
+    <svg class="rkt" viewBox="0 0 64 104" aria-hidden="true"><path d="M27 81 C27 93 32 102 32 102 C32 102 37 93 37 81 Z" fill="#d8541a"/>
+      <path d="M30 82 C30 91 32 97 32 97 C32 97 34 91 34 82 Z" fill="#f4a73c"/>
+      <path d="M21 64 L9 87 L21 79 Z" fill="#a83d0a"/>
+      <path d="M43 64 L55 87 L43 79 Z" fill="#a83d0a"/>
+      <path d="M27 73 L37 73 L35 82 L29 82 Z" fill="#8a6308"/>
+      <path d="M22 32 Q22 31 24 31 L40 31 Q42 31 42 32 L42 72 Q42 75 39 75 L25 75 Q22 75 22 72 Z" fill="#f7f2ea"/>
+      <path d="M32 5 C40 14 43 24 43 33 L21 33 C21 24 24 14 32 5 Z" fill="#a83d0a"/>
+      <rect x="22" y="59.5" width="20" height="3.5" fill="#b8860a"/>
+      <circle cx="32" cy="47" r="8.5" fill="#a83d0a"/>
+      <circle cx="32" cy="47" r="5.5" fill="#2a1c0d"/>
+      <circle cx="29.5" cy="44.5" r="1.8" fill="#f7f2ea" opacity="0.7"/></svg>
+    <div>
+      <p class="kicker">✦ Stilmanual · Levande dokument</p>
+      <h1>Rymden, <em>ritad</em><br>i ett system.</h1>
+      <p class="head-sub">Färgerna, formerna och orden som håller ihop hundra raketer. Ett dokument att luta sig mot — och att låta växa.</p>
+    </div>
+  </div>
+</header>
+
+<section class="block"><div class="wrap">
+  <p class="label">Innehåll</p>
+  <div class="toc">
+    <ol>
+      <li><a href="#oversikt">Översikt &amp; princip</a></li>
+      <li><a href="#farg-sommar">Färgskala — sommar (varm)</a></li>
+      <li><a href="#farg-sektioner">Färg i respektive avsnitt</a></li>
+      <li><a href="#farg-efter">Efter sommaren — kall skala</a></li>
+      <li><a href="#skiftning">Skiftningen: rust → blå</a></li>
+      <li><a href="#typsnitt">Typsnitt</a></li>
+      <li><a href="#termer">Rakettermer &amp; status</a></li>
+      <li><a href="#komponenter">Komponenter</a></li>
+      <li><a href="#rymd">Rymdbibliotek</a></li>
+      <li><a href="#rorelse">Rörelse &amp; ton</a></li>
+    </ol>
+  </div>
+</div></section>
+
+<section class="block" id="oversikt"><div class="wrap">
+  <p class="label">01 — Översikt</p>
+  <h2>Ett huvud med <em>hundra raketer</em></h2>
+  <p class="lead">Bloggen bygger på en enda bild: tankar som raketer — några startklara, några under reparation, några på ny kurs. Nyfikenheten är dragningskraften. Allt grafiskt ska kännas handritat och varmt, aldrig fabriksrent. Den här manualen håller den känslan konsekvent, oavsett vem som bygger nästa sida.</p>
+</div></section>
+
+<section class="block" id="farg-sommar"><div class="wrap">
+  <p class="label">02 — Färg / sommar</p>
+  <h2>Den <em>varma</em> skalan</h2>
+  <p class="lead">Grundpaletten. Rust är den primära accenten, guld den sekundära (och hör hemma i Fredagshälsningen). Klicka på en ruta för att kopiera hex-koden.</p>
+  <div class="swatch-grid">
+      <button class="swatch" data-hex="#1a1108" style="--c:#1a1108;--t:#f7f2ea">
+        <span class="swatch-chip"></span>
+        <span class="swatch-meta"><b>#1a1108</b><code>--ink</code><i>Rubriker & text mot ljust</i></span>
+      </button>
+      <button class="swatch" data-hex="#3a3028" style="--c:#3a3028;--t:#f7f2ea">
+        <span class="swatch-chip"></span>
+        <span class="swatch-meta"><b>#3a3028</b><code>--mid</code><i>Brödtext</i></span>
+      </button>
+      <button class="swatch" data-hex="#4a4035" style="--c:#4a4035;--t:#f7f2ea">
+        <span class="swatch-chip"></span>
+        <span class="swatch-meta"><b>#4a4035</b><code>--muted</code><i>Sekundär text, meta, ingress</i></span>
+      </button>
+      <button class="swatch" data-hex="#a83d0a" style="--c:#a83d0a;--t:#f7f2ea">
+        <span class="swatch-chip"></span>
+        <span class="swatch-meta"><b>#a83d0a</b><code>--rust</code><i>PRIMÄR ACCENT — etiketter, länkar</i></span>
+      </button>
+      <button class="swatch" data-hex="#b8860a" style="--c:#b8860a;--t:#f7f2ea">
+        <span class="swatch-chip"></span>
+        <span class="swatch-meta"><b>#b8860a</b><code>--gold</code><i>Sekundär accent (Fredagshälsning)</i></span>
+      </button>
+      <button class="swatch" data-hex="#e8c060" style="--c:#e8c060;--t:#1a1108">
+        <span class="swatch-chip"></span>
+        <span class="swatch-meta"><b>#e8c060</b><code>--gold-ljus</code><i>Höjdljus & etikett mot mörkt</i></span>
+      </button>
+      <button class="swatch" data-hex="#ede6d8" style="--c:#ede6d8;--t:#1a1108">
+        <span class="swatch-chip"></span>
+        <span class="swatch-meta"><b>#ede6d8</b><code>--soft</code><i>Linjer, kanter, avgränsare</i></span>
+      </button>
+      <button class="swatch" data-hex="#f7f2ea" style="--c:#f7f2ea;--t:#1a1108">
+        <span class="swatch-chip"></span>
+        <span class="swatch-meta"><b>#f7f2ea</b><code>--cream</code><i>Ljus sektionsbakgrund, kort</i></span>
+      </button>
+      <button class="swatch" data-hex="#fdfaf5" style="--c:#fdfaf5;--t:#1a1108">
+        <span class="swatch-chip"></span>
+        <span class="swatch-meta"><b>#fdfaf5</b><code>--warm-white</code><i>Sidans grundbakgrund</i></span>
+      </button>
+      <button class="swatch" data-hex="#2a1c0d" style="--c:#2a1c0d;--t:#f7f2ea">
+        <span class="swatch-chip"></span>
+        <span class="swatch-meta"><b>#2a1c0d</b><code>--brun-mork</code><i>Mörka sektioner: hero, fredag, sidfot</i></span>
+      </button>
+      <button class="swatch" data-hex="#d8541a" style="--c:#d8541a;--t:#f7f2ea">
+        <span class="swatch-chip"></span>
+        <span class="swatch-meta"><b>#d8541a</b><code>--laga</code><i>Raketlåga, yttre</i></span>
+      </button>
+      <button class="swatch" data-hex="#f4a73c" style="--c:#f4a73c;--t:#1a1108">
+        <span class="swatch-chip"></span>
+        <span class="swatch-meta"><b>#f4a73c</b><code>--laga-ljus</code><i>Raketlåga, inre</i></span>
+      </button>
+  </div>
+</div></section>
+
+<section class="block" id="farg-sektioner"><div class="wrap">
+  <p class="label">03 — Färg i sektionerna</p>
+  <h2>Vilken färg hör <em>var</em>?</h2>
+  <p class="lead">Så fördelas paletten över bloggens avsnitt — så att varje ny sida vet vilken bakgrund, etikett och accent som gäller.</p>
+  <table class="tbl">
+    <thead><tr><th>Avsnitt</th><th>Bakgrund</th><th>Etikett</th><th>Rubrik</th><th>Brödtext</th><th>Accent</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>Hero / toppen</b></td>
+        <td><span class="mini" style="background:#2a1c0d"></span>#2a1c0d</td>
+        <td>#e8c060 guld</td><td>#ffffff vit</td><td>–</td>
+        <td>#a83d0a rust</td>
+      </tr>
+      <tr>
+        <td><b>Intro</b></td>
+        <td><span class="mini" style="background:#fdfaf5"></span>#fdfaf5</td>
+        <td>#a83d0a rust</td><td>#1a1108 ink</td><td>#3a3028 mid</td>
+        <td>#a83d0a rust</td>
+      </tr>
+      <tr>
+        <td><b>Senaste uppskjutningar</b></td>
+        <td><span class="mini" style="background:#fdfaf5"></span>#fdfaf5</td>
+        <td>#a83d0a rust</td><td>#1a1108 ink</td><td>#4a4035 muted</td>
+        <td>#a83d0a rust</td>
+      </tr>
+      <tr>
+        <td><b>Fredagshälsning</b></td>
+        <td><span class="mini" style="background:#2a1c0d"></span>#2a1c0d</td>
+        <td>#b8860a guld</td><td>#ffffff vit</td><td>rgba(255,255,255,.8)</td>
+        <td>#e8c060 ljus guld</td>
+      </tr>
+      <tr>
+        <td><b>Landningsbana</b></td>
+        <td><span class="mini" style="background:#f7f2ea"></span>#f7f2ea</td>
+        <td>#a83d0a rust</td><td>#1a1108 ink</td><td>#4a4035 muted</td>
+        <td>#a83d0a rust</td>
+      </tr>
+      <tr>
+        <td><b>Sidfot</b></td>
+        <td><span class="mini" style="background:#2a1c0d"></span>#2a1c0d</td>
+        <td>–</td><td>#f7f2ea cream</td><td>rgba(255,255,255,.6)</td>
+        <td>#b8860a guld</td>
+      </tr>
+    </tbody>
+  </table>
+</div></section>
+
+<section class="block" id="farg-efter"><div class="wrap">
+  <p class="label">04 — Färg / efter sommaren</p>
+  <h2>Den <em>kalla</em> skalan</h2>
+  <p class="lead">När sommaren tar slut skiftar bloggen mot blått. Samma roller, samma kontraster — men den varmt roströda tonen blir en kall blå, guldet blir stål och cream blir frost. Byt bara ut variabelvärdena, så följer hela sidan med.</p>
+  <div class="swatch-grid">
+      <button class="swatch" data-hex="#0d1219" style="--c:#0d1219;--t:#f7f2ea">
+        <span class="swatch-chip"></span>
+        <span class="swatch-meta"><b>#0d1219</b><code>--k-ink</code><i>Rubriker & text mot ljust</i></span>
+      </button>
+      <button class="swatch" data-hex="#2a343d" style="--c:#2a343d;--t:#f7f2ea">
+        <span class="swatch-chip"></span>
+        <span class="swatch-meta"><b>#2a343d</b><code>--k-mid</code><i>Brödtext</i></span>
+      </button>
+      <button class="swatch" data-hex="#3a444f" style="--c:#3a444f;--t:#f7f2ea">
+        <span class="swatch-chip"></span>
+        <span class="swatch-meta"><b>#3a444f</b><code>--k-muted</code><i>Sekundär text, meta, ingress</i></span>
+      </button>
+      <button class="swatch" data-hex="#135e9e" style="--c:#135e9e;--t:#f7f2ea">
+        <span class="swatch-chip"></span>
+        <span class="swatch-meta"><b>#135e9e</b><code>--k-bla</code><i>PRIMÄR ACCENT (motsvarar rust)</i></span>
+      </button>
+      <button class="swatch" data-hex="#2d7fa6" style="--c:#2d7fa6;--t:#f7f2ea">
+        <span class="swatch-chip"></span>
+        <span class="swatch-meta"><b>#2d7fa6</b><code>--k-stal</code><i>Sekundär accent (motsvarar guld)</i></span>
+      </button>
+      <button class="swatch" data-hex="#79c2e8" style="--c:#79c2e8;--t:#1a1108">
+        <span class="swatch-chip"></span>
+        <span class="swatch-meta"><b>#79c2e8</b><code>--k-is</code><i>Höjdljus & etikett mot mörkt</i></span>
+      </button>
+      <button class="swatch" data-hex="#dbe5ee" style="--c:#dbe5ee;--t:#1a1108">
+        <span class="swatch-chip"></span>
+        <span class="swatch-meta"><b>#dbe5ee</b><code>--k-soft</code><i>Linjer, kanter, avgränsare</i></span>
+      </button>
+      <button class="swatch" data-hex="#e9eff4" style="--c:#e9eff4;--t:#1a1108">
+        <span class="swatch-chip"></span>
+        <span class="swatch-meta"><b>#e9eff4</b><code>--k-frost</code><i>Ljus sektionsbakgrund, kort</i></span>
+      </button>
+      <button class="swatch" data-hex="#f5f9fc" style="--c:#f5f9fc;--t:#1a1108">
+        <span class="swatch-chip"></span>
+        <span class="swatch-meta"><b>#f5f9fc</b><code>--k-vit</code><i>Sidans grundbakgrund</i></span>
+      </button>
+      <button class="swatch" data-hex="#0e1c2a" style="--c:#0e1c2a;--t:#f7f2ea">
+        <span class="swatch-chip"></span>
+        <span class="swatch-meta"><b>#0e1c2a</b><code>--k-midnatt</code><i>Mörka sektioner</i></span>
+      </button>
+      <button class="swatch" data-hex="#2ba6dd" style="--c:#2ba6dd;--t:#f7f2ea">
+        <span class="swatch-chip"></span>
+        <span class="swatch-meta"><b>#2ba6dd</b><code>--k-plasma</code><i>Raketlåga, yttre</i></span>
+      </button>
+      <button class="swatch" data-hex="#8fd7f5" style="--c:#8fd7f5;--t:#1a1108">
+        <span class="swatch-chip"></span>
+        <span class="swatch-meta"><b>#8fd7f5</b><code>--k-plasma-ljus</code><i>Raketlåga, inre</i></span>
+      </button>
+  </div>
+</div></section>
+
+<section class="block" id="skiftning"><div class="wrap">
+  <p class="label">05 — Skiftningen</p>
+  <h2>Från <em>rust</em> till <em>blå</em></h2>
+  <p class="lead">Övergången sker längs samma skala — temperaturen vrids, inte ljusheten. Det håller kontrasten (och tillgängligheten) intakt genom årstidsbytet.</p>
+  <div class="shift-bar"></div>
+  <div class="shift-ends"><span>#a83d0a · sommar-rust</span><span>kall blå · #135e9e</span></div>
+</div></section>
+
+<section class="block" id="typsnitt"><div class="wrap">
+  <p class="label">06 — Typsnitt</p>
+  <h2>Tre röster i <em>text</em></h2>
+  <div class="type-card">
+    <div class="name">Playfair Display — rubriker</div>
+    <div class="spec-playfair">Hundra <em>raketer</em></div>
+    <p class="use">Stora rubriker, vikt 900. Kursiv vikt 400 för accentord. Aldrig till brödtext.</p>
+  </div>
+  <div class="type-card">
+    <div class="name">DM Sans — brödtext</div>
+    <div class="spec-sans">Några skjuter iväg i gryningen, några väntar på sin bränslepåfyllning.</div>
+    <p class="use">All löptext, vikt 300. Lugn, luftig radhöjd (1.7).</p>
+  </div>
+  <div class="type-card">
+    <div class="name">DM Mono — etiketter &amp; meta</div>
+    <div class="spec-mono">RAKET #100 — VARJE FREDAG</div>
+    <p class="use">Versaler, vidgad teckenavstånd (0.2–0.28em). Etiketter, datum, status, nav.</p>
+  </div>
+</div></section>
+
+<section class="block" id="termer"><div class="wrap">
+  <p class="label">07 — Termer &amp; status</p>
+  <h2>Raketens <em>ordlista</em></h2>
+  <p class="lead">Varje inlägg får en status. Språket är en del av designen.</p>
+  <div class="pill-row">
+    <span class="pill">Under reparation</span>
+    <span class="pill">I bana</span>
+    <span class="pill">Ny kurs</span>
+    <span class="pill">Pyång</span>
+  </div>
+  <h3>Statusens betydelse</h3>
+  <div class="term"><b>Under reparation</b><span>Något som gick sönder, eller en tanke som ännu inte landat.</span></div>
+  <div class="term"><b>I bana</b><span>Stabilt, pågående, en vardagsobservation i rörelse.</span></div>
+  <div class="term"><b>Ny kurs</b><span>Framåt och nytt — teknik, förändring, det som inte finns ännu.</span></div>
+  <div class="term"><b>Pyång</b><span>En tanke som just tänt — nyfiken, lite oförutsägbar.</span></div>
+  <h3>Kategorier</h3>
+  <div class="term"><b>Framåt &amp; Nytt</b><span>Raketer på ny kurs.</span></div>
+  <div class="term"><b>Laga &amp; Lära</b><span>Raketer under reparation.</span></div>
+  <div class="term"><b>Vardag &amp; Verkliga</b><span>Det som händer mitt i ingenting.</span></div>
+  <div class="term"><b>Huvud &amp; Tanke</b><span>Reflektioner om mening.</span></div>
+  <div class="term"><b>Musik &amp; Stämning</b><span>Fredagshälsning &amp; soundtrack.</span></div>
+</div></section>
+
+<section class="block" id="komponenter"><div class="wrap">
+  <p class="label">08 — Komponenter</p>
+  <h2>Byggstenar i <em>bruk</em></h2>
+  <p class="lead">Musik-kortet och Spotify-knappen lever alltid mot mörk bakgrund (Fredagshälsningen). Etiketten där är guld, inte rust.</p>
+  <div class="demo-dark">
+    <div>
+      <p class="label label-dark">Raket #100 — Veckans soundtrack</p>
+      <p class="demo-note">Etikett i guld mot brun bakgrund.</p>
+    </div>
+    <div class="musik-kort">
+      <div class="musik-etikett">✦ Veckans uppskjutning</div>
+      <div class="musik-titel">Summer Solstice Mix</div>
+      <div class="musik-artist">Kuraterad av Monika · Spotify</div>
+      <a class="spotify-knapp" href="#" onclick="return false">▶ Lyssna på Spotify</a>
+    </div>
+  </div>
+</div></section>
+
+<section class="block" id="rymd"><div class="wrap">
+  <p class="label">09 — Rymdbibliotek</p>
+  <h2>Egna <em>himlakroppar</em></h2>
+  <p class="lead">Raketerna finns redan som inline-SVG. Planeterna ersätter systememojierna 🪐 🌍 🌙 med egna former i paletten — så att rymden ser likadan ut på varje skärm, och följer med in i den kalla skalan.</p>
+
+  <p class="rymd-cap cap-varm">Sommar — varm skala</p>
+  <div class="rymd-panel">
+    <div class="rymd-row">
+      <figure class="rymd-item"><svg class="rkt" viewBox="0 0 64 104" aria-hidden="true"><path d="M27 81 C27 93 32 102 32 102 C32 102 37 93 37 81 Z" fill="#d8541a"/>
+      <path d="M30 82 C30 91 32 97 32 97 C32 97 34 91 34 82 Z" fill="#f4a73c"/>
+      <path d="M21 64 L9 87 L21 79 Z" fill="#a83d0a"/>
+      <path d="M43 64 L55 87 L43 79 Z" fill="#a83d0a"/>
+      <path d="M27 73 L37 73 L35 82 L29 82 Z" fill="#8a6308"/>
+      <path d="M22 32 Q22 31 24 31 L40 31 Q42 31 42 32 L42 72 Q42 75 39 75 L25 75 Q22 75 22 72 Z" fill="#f7f2ea"/>
+      <path d="M32 5 C40 14 43 24 43 33 L21 33 C21 24 24 14 32 5 Z" fill="#a83d0a"/>
+      <rect x="22" y="59.5" width="20" height="3.5" fill="#b8860a"/>
+      <circle cx="32" cy="47" r="8.5" fill="#a83d0a"/>
+      <circle cx="32" cy="47" r="5.5" fill="#2a1c0d"/>
+      <circle cx="29.5" cy="44.5" r="1.8" fill="#f7f2ea" opacity="0.7"/></svg><figcaption>raket-cream</figcaption></figure>
+      <figure class="rymd-item"><svg class="rkt" viewBox="0 0 64 104" aria-hidden="true"><path d="M27 81 C27 93 32 102 32 102 C32 102 37 93 37 81 Z" fill="#d8541a"/>
+      <path d="M30 82 C30 91 32 97 32 97 C32 97 34 91 34 82 Z" fill="#f4a73c"/>
+      <path d="M21 64 L9 87 L21 79 Z" fill="#8f3208"/>
+      <path d="M43 64 L55 87 L43 79 Z" fill="#8f3208"/>
+      <path d="M27 73 L37 73 L35 82 L29 82 Z" fill="#6e4e06"/>
+      <path d="M22 32 Q22 31 24 31 L40 31 Q42 31 42 32 L42 72 Q42 75 39 75 L25 75 Q22 75 22 72 Z" fill="#a83d0a"/>
+      <path d="M32 5 C40 14 43 24 43 33 L21 33 C21 24 24 14 32 5 Z" fill="#8f3208"/>
+      <rect x="22" y="59.5" width="20" height="3.5" fill="#b8860a"/>
+      <circle cx="32" cy="47" r="8.5" fill="#8f3208"/>
+      <circle cx="32" cy="47" r="5.5" fill="#f7f2ea"/></svg><figcaption>raket-rost</figcaption></figure>
+
+    <figure class="rymd-item"><svg viewBox="0 0 120 96">
+      <ellipse cx="60" cy="48" rx="52" ry="14" fill="none" stroke="#b8860a" stroke-width="5" transform="rotate(-18 60 48)"/>
+      <circle cx="60" cy="48" r="30" fill="#a83d0a"/>
+      <path d="M30 48 a30 30 0 0 1 60 0 a30 30 0 0 1 -16 -20 a30 30 0 0 0 -44 20 z" fill="#8f3208" opacity="0.55"/>
+      <ellipse cx="51" cy="38" rx="11" ry="7" fill="#f4a73c" opacity="0.35"/>
+      <path d="M72 60 a52 14 0 0 0 30 -17" fill="none" stroke="#e8c060" stroke-width="5" transform="rotate(-18 60 48)"/>
+    </svg><figcaption>planet-ringad</figcaption></figure>
+
+    <figure class="rymd-item"><svg viewBox="0 0 120 96">
+      <defs><clipPath id="cga83d0a"><circle cx="60" cy="48" r="28"/></clipPath></defs>
+      <circle cx="60" cy="48" r="28" fill="#f7f2ea"/>
+      <g clip-path="url(#cga83d0a)">
+        <rect x="32" y="28" width="56" height="7" fill="#b8860a" opacity="0.85"/>
+        <rect x="32" y="40" width="56" height="6" fill="#a83d0a" opacity="0.5"/>
+        <rect x="32" y="50" width="56" height="8" fill="#4a4035" opacity="0.45"/>
+        <rect x="32" y="62" width="56" height="6" fill="#b8860a" opacity="0.7"/>
+      </g>
+      <ellipse cx="51" cy="39" rx="8" ry="5" fill="#ffffff" opacity="0.25"/>
+    </svg><figcaption>planet-gas</figcaption></figure>
+
+    <figure class="rymd-item"><svg viewBox="0 0 120 96">
+      <circle cx="58" cy="48" r="26" fill="#f7f2ea"/>
+      <circle cx="69" cy="44" r="24" fill="#1a0e06"/>
+      <circle cx="49" cy="54" r="3.4" fill="#cdbfa6" opacity="0.8"/>
+      <circle cx="46" cy="41" r="2.1" fill="#cdbfa6" opacity="0.7"/>
+      <circle cx="54" cy="36" r="1.7" fill="#cdbfa6" opacity="0.6"/>
+    </svg><figcaption>måne</figcaption></figure>
+
+    <figure class="rymd-item"><svg viewBox="0 0 120 96">
+      <circle cx="60" cy="48" r="20" fill="#b8860a"/>
+      <path d="M40 48 a20 20 0 0 1 40 0 a20 20 0 0 1 -11 -13 a20 20 0 0 0 -29 13 z" fill="#8a6308" opacity="0.5"/>
+      <circle cx="66" cy="53" r="5" fill="#8f3208" opacity="0.7"/>
+      <ellipse cx="53" cy="41" rx="6" ry="4" fill="#f4a73c" opacity="0.4"/>
+    </svg><figcaption>liten-planet</figcaption></figure>
+    </div>
+  </div>
+
+  <p class="rymd-cap cap-kall">Efter sommaren — kall skala</p>
+  <div class="rymd-panel kall">
+    <div class="rymd-row">
+      <figure class="rymd-item"><svg class="rkt" viewBox="0 0 64 104" aria-hidden="true"><path d="M27 81 C27 93 32 102 32 102 C32 102 37 93 37 81 Z" fill="#2ba6dd"/>
+      <path d="M30 82 C30 91 32 97 32 97 C32 97 34 91 34 82 Z" fill="#8fd7f5"/>
+      <path d="M21 64 L9 87 L21 79 Z" fill="#135e9e"/>
+      <path d="M43 64 L55 87 L43 79 Z" fill="#135e9e"/>
+      <path d="M27 73 L37 73 L35 82 L29 82 Z" fill="#2d7fa6"/>
+      <path d="M22 32 Q22 31 24 31 L40 31 Q42 31 42 32 L42 72 Q42 75 39 75 L25 75 Q22 75 22 72 Z" fill="#e9eff4"/>
+      <path d="M32 5 C40 14 43 24 43 33 L21 33 C21 24 24 14 32 5 Z" fill="#135e9e"/>
+      <rect x="22" y="59.5" width="20" height="3.5" fill="#2d7fa6"/>
+      <circle cx="32" cy="47" r="8.5" fill="#135e9e"/>
+      <circle cx="32" cy="47" r="5.5" fill="#0e1c2a"/>
+      <circle cx="29.5" cy="44.5" r="1.8" fill="#e9eff4" opacity="0.7"/></svg><figcaption>raket-kall</figcaption></figure>
+
+    <figure class="rymd-item"><svg viewBox="0 0 120 96">
+      <ellipse cx="60" cy="48" rx="52" ry="14" fill="none" stroke="#2d7fa6" stroke-width="5" transform="rotate(-18 60 48)"/>
+      <circle cx="60" cy="48" r="30" fill="#135e9e"/>
+      <path d="M30 48 a30 30 0 0 1 60 0 a30 30 0 0 1 -16 -20 a30 30 0 0 0 -44 20 z" fill="#0c4a7e" opacity="0.55"/>
+      <ellipse cx="51" cy="38" rx="11" ry="7" fill="#8fd7f5" opacity="0.35"/>
+      <path d="M72 60 a52 14 0 0 0 30 -17" fill="none" stroke="#79c2e8" stroke-width="5" transform="rotate(-18 60 48)"/>
+    </svg><figcaption>planet-ringad</figcaption></figure>
+
+    <figure class="rymd-item"><svg viewBox="0 0 120 96">
+      <defs><clipPath id="cg135e9e"><circle cx="60" cy="48" r="28"/></clipPath></defs>
+      <circle cx="60" cy="48" r="28" fill="#e9eff4"/>
+      <g clip-path="url(#cg135e9e)">
+        <rect x="32" y="28" width="56" height="7" fill="#2d7fa6" opacity="0.85"/>
+        <rect x="32" y="40" width="56" height="6" fill="#135e9e" opacity="0.5"/>
+        <rect x="32" y="50" width="56" height="8" fill="#3a444f" opacity="0.45"/>
+        <rect x="32" y="62" width="56" height="6" fill="#2d7fa6" opacity="0.7"/>
+      </g>
+      <ellipse cx="51" cy="39" rx="8" ry="5" fill="#ffffff" opacity="0.25"/>
+    </svg><figcaption>planet-gas</figcaption></figure>
+
+    <figure class="rymd-item"><svg viewBox="0 0 120 96">
+      <circle cx="58" cy="48" r="26" fill="#e9eff4"/>
+      <circle cx="69" cy="44" r="24" fill="#0a1622"/>
+      <circle cx="49" cy="54" r="3.4" fill="#b8c6d4" opacity="0.8"/>
+      <circle cx="46" cy="41" r="2.1" fill="#b8c6d4" opacity="0.7"/>
+      <circle cx="54" cy="36" r="1.7" fill="#b8c6d4" opacity="0.6"/>
+    </svg><figcaption>måne</figcaption></figure>
+
+    <figure class="rymd-item"><svg viewBox="0 0 120 96">
+      <circle cx="60" cy="48" r="20" fill="#2d7fa6"/>
+      <path d="M40 48 a20 20 0 0 1 40 0 a20 20 0 0 1 -11 -13 a20 20 0 0 0 -29 13 z" fill="#1f6e92" opacity="0.5"/>
+      <circle cx="66" cy="53" r="5" fill="#0c4a7e" opacity="0.7"/>
+      <ellipse cx="53" cy="41" rx="6" ry="4" fill="#8fd7f5" opacity="0.4"/>
+    </svg><figcaption>liten-planet</figcaption></figure>
+    </div>
+  </div>
+</div></section>
+
+<section class="block" id="rorelse"><div class="wrap">
+  <p class="label">10 — Rörelse &amp; ton</p>
+  <h2>Långsamt, <em>levande</em>, äkta</h2>
+  <h3>Rörelse</h3>
+  <p class="lead">Floaters (raketer &amp; planeter) driver uppåt långsamt och osynkat — aldrig snabbt eller stökigt. Låg opacitet, lång väg, slumpad start. Rörelse ska kännas som andetag, inte som en animation.</p>
+  <h3>Röst &amp; ton</h3>
+  <div class="term"><b>Skriv rått först</b><span>Den privata versionen för dig själv — forma sedan den publika kring universella känslor.</span></div>
+  <div class="term"><b>Håll detaljer borta</b><span>Inte feghet — hantverk. Skriv om känslan, inte om personen.</span></div>
+  <div class="term"><b>Tankstreck</b><span>Hellre tankstreck (—) än semikolon, särskilt i rubriker.</span></div>
+  <div class="term"><b>Får vara oavslutat</b><span>"Fortfarande under reparation" är ett ärligt och vackert slut.</span></div>
+</div></section>
+
+<footer>
+  <div class="footer-logo"><span>M</span>onika Make It Happen</div>
+  <div class="footer-sub">Stilmanual · ett levande dokument · @monikamakeithappen</div>
+</footer>
+
+<script>
+  document.querySelectorAll('.swatch').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var hex = b.getAttribute('data-hex');
+      if (navigator.clipboard) navigator.clipboard.writeText(hex);
+      b.classList.add('copied');
+      setTimeout(function () { b.classList.remove('copied'); }, 1200);
+    });
+  });
+</script>
+</body>
+</html>
