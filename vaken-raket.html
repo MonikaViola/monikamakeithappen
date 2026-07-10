@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tung kropp, vaken raket — Monika Make It Happen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:#1a1108; --cream:#f7f2ea; --warm-white:#fdfaf5; --rust:#a83d0a;
+    --gold:#b8860a; --gold-ljus:#e8c060; --muted:#4a4035; --soft:#ede6d8;
+    --mid:#3a3028; --brun:#2a1c0d;
+  }
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--warm-white); color:var(--ink); font-family:'DM Sans',sans-serif; font-weight:300; line-height:1.7; overflow-x:hidden; }
+  a { color:inherit; }
+  :focus-visible { outline:2px solid var(--gold-ljus); outline-offset:3px; }
+
+  nav { position:sticky; top:0; z-index:100; background:rgba(253,250,245,.96); backdrop-filter:blur(8px); border-bottom:1px solid var(--soft); padding:0 2.5rem; display:flex; align-items:center; justify-content:space-between; height:58px; }
+  .nav-logo { font-family:'Playfair Display',serif; font-size:1rem; font-weight:700; font-style:italic; color:var(--ink); text-decoration:none; }
+  .nav-logo span { color:var(--rust); }
+  .nav-links { display:flex; gap:1.6rem; }
+  .nav-links a { font-family:'DM Mono',monospace; font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); text-decoration:none; }
+  .nav-links a:hover { color:var(--ink); }
+
+  /* HEADER (mörk fredag) */
+  header { background:var(--brun); padding:6rem 2.5rem 5rem; position:relative; overflow:hidden; }
+  header::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 60% at 78% 32%, rgba(70,40,12,.4) 0%, transparent 70%), linear-gradient(170deg,#3a2410 0%,#1a0e06 65%,#110a04 100%); }
+  .floaters { position:absolute; inset:0; z-index:1; pointer-events:none; }
+  .floaters .rkt { position:absolute; opacity:.14; animation:drift 26s linear infinite; }
+  .floaters .f1 { left:12%; width:30px; animation-duration:30s; }
+  .floaters .f2 { left:48%; width:22px; animation-duration:38s; animation-delay:-12s; opacity:.1; }
+  .floaters .f3 { left:84%; width:26px; animation-duration:34s; animation-delay:-22s; }
+  @keyframes drift { from { transform:translateY(115%) rotate(-4deg); } to { transform:translateY(-130%) rotate(4deg); } }
+
+  .head-wrap { position:relative; z-index:2; max-width:820px; margin:0 auto; display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap; }
+  .head-wrap .rkt-stor { width:62px; height:101px; flex:none; }
+  .kicker { font-family:'DM Mono',monospace; font-size:.63rem; letter-spacing:.28em; text-transform:uppercase; color:var(--gold-ljus); margin-bottom:1.2rem; }
+  h1 { font-family:'Playfair Display',serif; font-size:clamp(2.4rem,6vw,4rem); font-weight:900; line-height:1; color:#fff; letter-spacing:-.02em; }
+  h1 em { font-style:italic; font-weight:400; color:rgba(255,255,255,.8); }
+  .head-meta { display:flex; flex-wrap:wrap; gap:.7rem; align-items:center; margin-top:1.5rem; }
+  .pill { font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.16em; text-transform:uppercase; color:var(--gold-ljus); border:1px solid rgba(232,192,96,.5); padding:.4rem .8rem; }
+  .head-meta .meta-txt { font-family:'DM Mono',monospace; font-size:.62rem; letter-spacing:.12em; color:rgba(247,242,234,.55); }
+
+  /* ARTIKEL (ljus) */
+  article { max-width:680px; margin:0 auto; padding:5rem 2.5rem 1rem; }
+  article p { color:var(--mid); font-size:1.08rem; margin-bottom:1.5rem; }
+  article p.ingress { color:var(--muted); font-size:1.18rem; }
+  .pull { font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1.5rem,3.5vw,2rem); line-height:1.3; color:var(--rust); border-left:2px solid var(--rust); padding:.4rem 0 .4rem 1.6rem; margin:2.8rem 0; }
+  .signoff { font-family:'DM Mono',monospace; font-size:.74rem; letter-spacing:.14em; text-transform:uppercase; color:var(--rust); margin-top:2.5rem; }
+
+  /* MUSIK (mörk fredag) */
+  .musik { background:var(--brun); position:relative; overflow:hidden; padding:5rem 2.5rem; margin-top:4rem; }
+  .musik::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 70% at 22% 70%, rgba(70,40,12,.45) 0%, transparent 70%), linear-gradient(160deg,#2a1810 0%,#160b04 70%,#110a04 100%); }
+  .musik-wrap { position:relative; z-index:2; max-width:680px; margin:0 auto; }
+  .musik-label { font-family:'DM Mono',monospace; font-size:.63rem; letter-spacing:.28em; text-transform:uppercase; color:var(--gold-ljus); display:flex; align-items:center; gap:.7rem; margin-bottom:1.4rem; }
+  .musik-label::after { content:''; width:32px; height:1px; background:var(--gold-ljus); opacity:.4; }
+
+  .musik-kort { background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.18); padding:2rem; display:flex; flex-wrap:wrap; gap:1.6rem; align-items:center; justify-content:space-between; }
+  .musik-kort .info { min-width:230px; flex:1; }
+  .musik-etikett { font-family:'DM Mono',monospace; font-size:.6rem; letter-spacing:.25em; text-transform:uppercase; color:var(--gold-ljus); margin-bottom:.7rem; }
+  .musik-titel { font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:700; color:#fff; line-height:1.15; }
+  .musik-artist { font-family:'DM Mono',monospace; font-size:.7rem; color:rgba(255,255,255,.7); margin-top:.5rem; }
+  .spotify-knapp { display:inline-flex; align-items:center; gap:.55rem; padding:.8rem 1.4rem; background:#1DB954; color:#fff; text-decoration:none; font-family:'DM Mono',monospace; font-size:.68rem; letter-spacing:.12em; text-transform:uppercase; white-space:nowrap; transition:transform .2s; }
+  .spotify-knapp:hover { transform:translateY(-2px); }
+
+  /* Bågen / stämningen */
+  .bana { margin-top:3rem; }
+  .fas { border-top:1px solid rgba(255,255,255,.14); padding:1.8rem 0; }
+  .fas-topp { display:flex; align-items:baseline; gap:1rem; flex-wrap:wrap; margin-bottom:1.1rem; }
+  .fas-tid { font-family:'DM Mono',monospace; font-size:.62rem; letter-spacing:.18em; text-transform:uppercase; color:var(--gold-ljus); }
+  .fas-namn { font-family:'Playfair Display',serif; font-style:italic; font-size:1.25rem; color:#fff; }
+  .fas-not { font-family:'DM Sans',sans-serif; font-size:.9rem; color:rgba(247,242,234,.68); }
+
+  footer { background:var(--brun); color:var(--cream); text-align:center; padding:3.5rem 2.5rem; position:relative; z-index:2; }
+  .footer-logo { font-family:'Playfair Display',serif; font-style:italic; font-weight:700; }
+  .footer-logo span { color:var(--rust); }
+  .footer-sub { font-family:'DM Mono',monospace; font-size:.62rem; letter-spacing:.12em; color:rgba(255,255,255,.5); margin-top:.5rem; }
+
+  @media (max-width:680px) {
+    nav { padding:0 1.4rem; }
+    .nav-links { gap:1rem; }
+    header { padding:4.5rem 1.6rem 3.5rem; }
+    article { padding:3.5rem 1.6rem 1rem; }
+    .musik { padding:3.5rem 1.6rem; }
+    .musik-kort { flex-direction:column; align-items:flex-start; }
+  }
+  @media (prefers-reduced-motion:reduce) {
+    .floaters .rkt { animation:none; opacity:.1; }
+    html { scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html"><span>M</span>onika Make It Happen</a>
+  <div class="nav-links">
+    <a href="stil.html">Stilmanual</a>
+    <a href="index.html">← Tillbaka</a>
+  </div>
+</nav>
+
+<header>
+  <div class="floaters" aria-hidden="true">
+    <svg class="rkt f1" viewBox="0 0 64 104"><path d="M27 81 C27 93 32 102 32 102 C32 102 37 93 37 81 Z" fill="#d8541a"/><path d="M30 82 C30 91 32 97 32 97 C32 97 34 91 34 82 Z" fill="#f4a73c"/><path d="M21 64 L9 87 L21 79 Z" fill="#a83d0a"/><path d="M43 64 L55 87 L43 79 Z" fill="#a83d0a"/><path d="M27 73 L37 73 L35 82 L29 82 Z" fill="#8a6308"/><path d="M22 32 Q22 31 24 31 L40 31 Q42 31 42 32 L42 72 Q42 75 39 75 L25 75 Q22 75 22 72 Z" fill="#f7f2ea"/><path d="M32 5 C40 14 43 24 43 33 L21 33 C21 24 24 14 32 5 Z" fill="#a83d0a"/><rect x="22" y="59.5" width="20" height="3.5" fill="#b8860a"/><circle cx="32" cy="47" r="8.5" fill="#a83d0a"/><circle cx="32" cy="47" r="5.5" fill="#2a1c0d"/></svg>
+    <svg class="rkt f2" viewBox="0 0 64 104"><path d="M27 81 C27 93 32 102 32 102 C32 102 37 93 37 81 Z" fill="#d8541a"/><path d="M30 82 C30 91 32 97 32 97 C32 97 34 91 34 82 Z" fill="#f4a73c"/><path d="M21 64 L9 87 L21 79 Z" fill="#a83d0a"/><path d="M43 64 L55 87 L43 79 Z" fill="#a83d0a"/><path d="M27 73 L37 73 L35 82 L29 82 Z" fill="#8a6308"/><path d="M22 32 Q22 31 24 31 L40 31 Q42 31 42 32 L42 72 Q42 75 39 75 L25 75 Q22 75 22 72 Z" fill="#f7f2ea"/><path d="M32 5 C40 14 43 24 43 33 L21 33 C21 24 24 14 32 5 Z" fill="#a83d0a"/><rect x="22" y="59.5" width="20" height="3.5" fill="#b8860a"/><circle cx="32" cy="47" r="8.5" fill="#a83d0a"/><circle cx="32" cy="47" r="5.5" fill="#2a1c0d"/></svg>
+    <svg class="rkt f3" viewBox="0 0 64 104"><path d="M27 81 C27 93 32 102 32 102 C32 102 37 93 37 81 Z" fill="#d8541a"/><path d="M30 82 C30 91 32 97 32 97 C32 97 34 91 34 82 Z" fill="#f4a73c"/><path d="M21 64 L9 87 L21 79 Z" fill="#a83d0a"/><path d="M43 64 L55 87 L43 79 Z" fill="#a83d0a"/><path d="M27 73 L37 73 L35 82 L29 82 Z" fill="#8a6308"/><path d="M22 32 Q22 31 24 31 L40 31 Q42 31 42 32 L42 72 Q42 75 39 75 L25 75 Q22 75 22 72 Z" fill="#f7f2ea"/><path d="M32 5 C40 14 43 24 43 33 L21 33 C21 24 24 14 32 5 Z" fill="#a83d0a"/><rect x="22" y="59.5" width="20" height="3.5" fill="#b8860a"/><circle cx="32" cy="47" r="8.5" fill="#a83d0a"/><circle cx="32" cy="47" r="5.5" fill="#2a1c0d"/></svg>
+  </div>
+  <div class="head-wrap">
+    <svg class="rkt-stor" viewBox="0 0 64 104" aria-hidden="true"><path d="M27 81 C27 93 32 102 32 102 C32 102 37 93 37 81 Z" fill="#d8541a"/><path d="M30 82 C30 91 32 97 32 97 C32 97 34 91 34 82 Z" fill="#f4a73c"/><path d="M21 64 L9 87 L21 79 Z" fill="#a83d0a"/><path d="M43 64 L55 87 L43 79 Z" fill="#a83d0a"/><path d="M27 73 L37 73 L35 82 L29 82 Z" fill="#8a6308"/><path d="M22 32 Q22 31 24 31 L40 31 Q42 31 42 32 L42 72 Q42 75 39 75 L25 75 Q22 75 22 72 Z" fill="#f7f2ea"/><path d="M32 5 C40 14 43 24 43 33 L21 33 C21 24 24 14 32 5 Z" fill="#a83d0a"/><rect x="22" y="59.5" width="20" height="3.5" fill="#b8860a"/><circle cx="32" cy="47" r="8.5" fill="#a83d0a"/><circle cx="32" cy="47" r="5.5" fill="#2a1c0d"/><circle cx="29.5" cy="44.5" r="1.8" fill="#f7f2ea" opacity="0.7"/></svg>
+    <div>
+      <p class="kicker">✦ Fredagshälsning · varje fredag</p>
+      <h1>Tung kropp, <em>vaken raket</em></h1>
+      <div class="head-meta">
+        <span class="pill">I bana</span>
+        <span class="meta-txt">Musik &amp; Stämning · ikväll, i skogen</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<article>
+  <p class="ingress">Redan fredag. Under ledigheten blir det ändå en sorts månadsspaning — jag scannar av, utan att riktigt vila.</p>
+
+  <p>Veckan har varit lagom tuff. Arbetet har rullat på som det ska — inget dramatiskt, men jag känner det ändå, mer i kroppen än i huvudet.</p>
+
+  <p>Ikväll är det skogen som kallar. Den raketen har varit vaken hela veckan — den har aldrig somnat till, oavsett hur trött resten av mig blivit.</p>
+
+  <p class="pull">En jäkla tung kropp — men något därinne orkar ändå.</p>
+
+  <p>Det finns några planeter kvar att kryssa igenom innan jag är framme. Ingen rak bana ikväll, mer en sicksack genom det som är kvar av veckan. Får se hur natten landar.</p>
+
+  <p class="signoff">Vi ses där ute. Ikväll blir det ljuv musik. ✦</p>
+</article>
+
+<section class="musik">
+  <div class="musik-wrap">
+    <p class="musik-label">Ikvällens soundtrack</p>
+
+    <div class="musik-kort">
+      <div class="info">
+        <div class="musik-etikett">✦ Genom mörkret, mjukt</div>
+        <div class="musik-titel">Tung kropp, vaken raket</div>
+        <div class="musik-artist">Kuraterad av Monika · deep &amp; acid house · i Bail-E, Bella Boo, Kurt och Mr &amp; Mrs Dale-anda</div>
+      </div>
+      <a class="spotify-knapp" href="https://open.spotify.com/playlist/0d3ujEEHPFrXLVxLzZjj2M" target="_blank" rel="noopener">▶ Lyssna på Spotify</a>
+    </div>
+
+    <div class="bana">
+      <div class="fas">
+        <div class="fas-topp">
+          <span class="fas-tid">✦ Djupt, pulserande</span>
+          <span class="fas-namn">Genom trötta ben, framåt ändå</span>
+        </div>
+        <p class="fas-not">Deep house som bär, acid house som sticker till lite — inget som skriker, men något som håller pulsen igång när kroppen är tung. Musik att gå in i natten till.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo"><span>M</span>onika Make It Happen</div>
+  <div class="footer-sub">Fredagshälsning · en av hundra raketer · @monikamakeithappen</div>
+</footer>
+
+</body>
+</html>
