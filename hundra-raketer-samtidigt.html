@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hundra raketer samtidigt — Monika Make It Happen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:#1a1108; --cream:#f7f2ea; --warm-white:#fdfaf5; --rust:#a83d0a;
+    --gold:#b8860a; --gold-ljus:#e8c060; --muted:#4a4035; --soft:#ede6d8;
+    --mid:#3a3028; --brun:#2a1c0d;
+  }
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--warm-white); color:var(--ink); font-family:'DM Sans',sans-serif; font-weight:300; line-height:1.7; overflow-x:hidden; }
+
+  nav { position:sticky; top:0; z-index:100; background:rgba(253,250,245,.96); backdrop-filter:blur(8px); border-bottom:1px solid var(--soft); padding:0 2.5rem; display:flex; align-items:center; justify-content:space-between; height:58px; }
+  .nav-logo { font-family:'Playfair Display',serif; font-size:1rem; font-weight:700; font-style:italic; color:var(--ink); text-decoration:none; }
+  .nav-logo span { color:var(--rust); }
+  .nav-links { display:flex; gap:1.6rem; align-items:center; }
+  .nav-back, .nav-stil { font-family:'DM Mono',monospace; font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); text-decoration:none; }
+  .nav-back:hover, .nav-stil:hover { color:var(--ink); }
+
+  header { background:var(--brun); padding:5.5rem 2.5rem 4.5rem; position:relative; overflow:hidden; }
+  header::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 60% at 78% 32%, rgba(70,40,12,.4) 0%, transparent 70%), linear-gradient(170deg,#3a2410 0%,#1a0e06 65%,#110a04 100%); }
+  .head-wrap { position:relative; z-index:2; max-width:680px; margin:0 auto; }
+  .kicker { font-family:'DM Mono',monospace; font-size:.63rem; letter-spacing:.28em; text-transform:uppercase; color:var(--gold-ljus); margin-bottom:1.2rem; }
+  h1 { font-family:'Playfair Display',serif; font-size:clamp(2.1rem,5.5vw,3.4rem); font-weight:900; line-height:1.05; color:#fff; letter-spacing:-.02em; }
+  h1 em { font-style:italic; font-weight:400; color:rgba(255,255,255,.8); }
+  .status-row { display:flex; flex-wrap:wrap; align-items:center; gap:.9rem; margin-top:1.6rem; }
+  .pill { font-family:'DM Mono',monospace; font-size:.62rem; letter-spacing:.16em; text-transform:uppercase; color:var(--gold-ljus); border:1px solid var(--gold-ljus); padding:.4rem .8rem; }
+  .meta-line { font-family:'DM Mono',monospace; font-size:.68rem; letter-spacing:.08em; color:rgba(247,242,234,.6); }
+
+  .wrap { max-width:680px; margin:0 auto; padding:0 2.5rem; }
+  article { padding:4rem 0 3rem; }
+  .lead { color:var(--muted); font-size:1.08rem; margin-bottom:1.8rem; }
+  p.body-text { color:var(--mid); margin-bottom:1.5rem; font-size:1.02rem; }
+  p.body-text b { color:var(--ink); font-weight:500; }
+
+  blockquote.pull { border-left:2px solid var(--rust); padding:.3rem 0 .3rem 1.6rem; margin:2.6rem 0; }
+  blockquote.pull p { font-family:'Playfair Display',serif; font-style:italic; font-size:1.35rem; color:var(--ink); line-height:1.35; }
+
+  .signoff { margin-top:2.4rem; padding-top:1.6rem; border-top:1px solid var(--soft); font-family:'DM Mono',monospace; font-size:.78rem; letter-spacing:.04em; color:var(--muted); }
+
+  .rymd-strip { background:linear-gradient(170deg,#3a2410,#1a0e06 70%,#110a04); padding:2.2rem 1.5rem; display:flex; justify-content:center; gap:1.4rem; margin:3rem 0; }
+  .rymd-strip svg { width:46px; height:75px; }
+
+  footer { background:var(--brun); color:var(--cream); text-align:center; padding:3.5rem 2.5rem; margin-top:2rem; }
+  .footer-logo { font-family:'Playfair Display',serif; font-style:italic; font-weight:700; }
+  .footer-logo span { color:var(--rust); }
+  .footer-sub { font-family:'DM Mono',monospace; font-size:.62rem; letter-spacing:.12em; color:rgba(255,255,255,.5); margin-top:.5rem; }
+
+  @media (max-width:680px) {
+    header { padding:4.5rem 1.6rem 3.5rem; }
+    .wrap, .head-wrap { padding-left:1.6rem; padding-right:1.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html"><span>M</span>onika Make It Happen</a>
+  <div class="nav-links">
+    <a class="nav-stil" href="stil.html">Stilmanual</a>
+    <a class="nav-back" href="index.html">← Tillbaka</a>
+  </div>
+</nav>
+
+<header>
+  <div class="head-wrap">
+    <p class="kicker">✦ Raket #10 · Vardag &amp; Verkliga</p>
+    <h1>Hundra raketer, <em>samtidigt</em></h1>
+    <div class="status-row">
+      <span class="pill">I bana</span>
+      <span class="meta-line">25 juli 2026</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <article>
+    <p class="lead">Fredagen skulle skjutas upp som vanligt. Istället blev det rave — och plötsligt var det inte en raket i luften, utan hundra, samtidigt, okontrollerat, underbart.</p>
+
+    <p class="body-text">Ingen mjuk uppskjutning den kvällen. Basen tog över, kroppen tog över, och för en gångs skull fick tanken vila medan allt annat rörde sig. Så är det ibland — man planerar en sak och universum skickar ett helt annat mönster av ljus.</p>
+
+    <p class="body-text">Så kom mitten av veckan, och farten bytte riktning helt. En paus — <b>Sir Christopher Nolan</b> denna gång. Hans filmer gör alltid samma sak med mig: de knuffar till tankarna som redan snurrar, och plötsligt är det fler idéer i omloppsbana än jag hann räkna med. Inte en lugn paus. En paus som tänder saker.</p>
+
+    <blockquote class="pull"><p>"Inte varje vecka behöver bli en lansering. Vissa veckor är bara — i bana."</p></blockquote>
+
+    <p class="body-text">Och nu — ledigheten som väntar. Ett par veckor där banan ska planas ut. Inte lämna omloppet helt, bara sänka farten. Låta motorerna svalna innan nästa uppskjutning.</p>
+
+    <div class="rymd-strip" aria-hidden="true">
+      <svg viewBox="0 0 64 104"><path d="M27 81 C27 93 32 102 32 102 C32 102 37 93 37 81 Z" fill="#d8541a"/><path d="M30 82 C30 91 32 97 32 97 C32 97 34 91 34 82 Z" fill="#f4a73c"/><path d="M21 64 L9 87 L21 79 Z" fill="#a83d0a"/><path d="M43 64 L55 87 L43 79 Z" fill="#a83d0a"/><path d="M27 73 L37 73 L35 82 L29 82 Z" fill="#8a6308"/><path d="M22 32 Q22 31 24 31 L40 31 Q42 31 42 32 L42 72 Q42 75 39 75 L25 75 Q22 75 22 72 Z" fill="#f7f2ea"/><path d="M32 5 C40 14 43 24 43 33 L21 33 C21 24 24 14 32 5 Z" fill="#a83d0a"/><rect x="22" y="59.5" width="20" height="3.5" fill="#b8860a"/><circle cx="32" cy="47" r="8.5" fill="#a83d0a"/><circle cx="32" cy="47" r="5.5" fill="#2a1c0d"/></svg>
+      <svg viewBox="0 0 64 104"><path d="M27 81 C27 93 32 102 32 102 C32 102 37 93 37 81 Z" fill="#d8541a"/><path d="M30 82 C30 91 32 97 32 97 C32 97 34 91 34 82 Z" fill="#f4a73c"/><path d="M21 64 L9 87 L21 79 Z" fill="#8f3208"/><path d="M43 64 L55 87 L43 79 Z" fill="#8f3208"/><path d="M27 73 L37 73 L35 82 L29 82 Z" fill="#6e4e06"/><path d="M22 32 Q22 31 24 31 L40 31 Q42 31 42 32 L42 72 Q42 75 39 75 L25 75 Q22 75 22 72 Z" fill="#a83d0a"/><path d="M32 5 C40 14 43 24 43 33 L21 33 C21 24 24 14 32 5 Z" fill="#8f3208"/><rect x="22" y="59.5" width="20" height="3.5" fill="#b8860a"/><circle cx="32" cy="47" r="8.5" fill="#8f3208"/><circle cx="32" cy="47" r="5.5" fill="#f7f2ea"/></svg>
+      <svg viewBox="0 0 64 104"><path d="M27 81 C27 93 32 102 32 102 C32 102 37 93 37 81 Z" fill="#d8541a"/><path d="M30 82 C30 91 32 97 32 97 C32 97 34 91 34 82 Z" fill="#f4a73c"/><path d="M21 64 L9 87 L21 79 Z" fill="#a83d0a"/><path d="M43 64 L55 87 L43 79 Z" fill="#a83d0a"/><path d="M27 73 L37 73 L35 82 L29 82 Z" fill="#8a6308"/><path d="M22 32 Q22 31 24 31 L40 31 Q42 31 42 32 L42 72 Q42 75 39 75 L25 75 Q22 75 22 72 Z" fill="#f7f2ea"/><path d="M32 5 C40 14 43 24 43 33 L21 33 C21 24 24 14 32 5 Z" fill="#a83d0a"/><rect x="22" y="59.5" width="20" height="3.5" fill="#b8860a"/><circle cx="32" cy="47" r="8.5" fill="#a83d0a"/><circle cx="32" cy="47" r="5.5" fill="#2a1c0d"/></svg>
+    </div>
+
+    <p class="signoff">Nästa uppskjutning kommer när den kommer. Just nu: fest bakom, film i huvudet, ledighet framför. ✦</p>
+  </article>
+</div>
+
+<footer>
+  <div class="footer-logo"><span>M</span>onika Make It Happen</div>
+  <div class="footer-sub">Raket #10 · en av hundra raketer · @monikamakeithappen</div>
+</footer>
+
+</body>
+</html>
